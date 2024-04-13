@@ -18,6 +18,7 @@ class ADXL345:
     setDatarate = False
     setAddr = False
     setupD = False
+    Error = False
     consoleLog = True
     def __init__(self, bus):
         self.addr = 0x53

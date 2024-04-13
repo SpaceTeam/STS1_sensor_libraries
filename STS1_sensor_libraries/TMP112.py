@@ -1,4 +1,6 @@
 from smbus2 import i2c_msg
+import logging
+
 class TMP112:
     poss_addr = [0x48, 0x49, 0x4A, 0x4B]
     poss_conversionrate = [0.25, 1, 4, 8]
@@ -12,6 +14,7 @@ class TMP112:
     setConversionrate = False
     setAddr = False
     setupD = False
+    Error = False
     consoleLog = True
     def __init__(self, bus):
         self.addr = 0x48
@@ -24,48 +27,57 @@ class TMP112:
         elif mode == 0:
             self.mode = 0b0
         elif self.consoleLog:
-            print("The mode entered is invalid. Please use 0 or 1 as the mode")
+            logging.error("TMP112: The mode entered is invalid. Please use 0 or 1 as the mode")
     def set_address(self, address):
         try:
             self.poss_addr.index(address)
             self.addr = address
             self.setAddr = True
         except ValueError:
-            s = "The address (" + str(hex(address)) + ") you entered for the sensor TMP112 does not exist!"
+            s = "TMP112: The address (" + str(hex(address)) + ") you entered for the sensor TMP112 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                logging.error(s)
+            s = "TMP112: Try one of the following:"
             for value in self.poss_addr:
                 s = s + str(hex(value)) + " "
             if self.consoleLog:
-                print(s)
-                print("TMP112 not initialized!!!")
+                logging.info(s)
+                logging.error("TMP112: not initialized!!!")
     def set_conversionrate(self, rate):
         try:
             self.poss_conversionrate.index(rate)
             self.conversionrate = rate
             self.setConversionrate = True
         except ValueError:
-            s = "The conversionrate (" + str(rate) + ") you entered for the sensor TMP112 does not exist!"
+            s = "TMP112: The conversionrate (" + str(rate) + ") you entered for the sensor TMP112 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                logging.error(s)
+            s = "TMP112: Try one of the following:"
             for value in self.poss_conversionrate:
                 s = s + str(value) + " "
             if self.consoleLog:
-                print(s)
-                print("TMP112 conversionrate not set!!!")
+                logging.info(s)
+                logging.error("TMP112: conversionrate not set!!!")
     def setup(self):
         if self.setAddr and self.setConversionrate:
             #all settings correct
-            msg = i2c_msg.write(self.addr, [0b00000001,0b01100000,0b00100000 + ((self.poss_conversionrate_bin[self.poss_conversionrate.index(self.conversionrate)]) << 6)  + (self.mode << 4)])
-            self.bus.i2c_rdwr(msg)
+            try:
+                msg = i2c_msg.write(self.addr, [0b00000001,0b01100000,0b00100000 + ((self.poss_conversionrate_bin[self.poss_conversionrate.index(self.conversionrate)]) << 6)  + (self.mode << 4)])
+                self.bus.i2c_rdwr(msg)
+            except OSError as e:
+                self.Error = True
+                if e.errno == 121:
+                    logging.error("ADXL345: Remote I/O Error: The device is not responding on the bus. Therefore it will be ignored")
+                else:
+                    logging.error(f,"ADXL345: An error occurred: {e}")
+                return None
+                
             self.setupD = True
             if self.consoleLog:
-                print("Setup finished, TMP112 ready.")
+                logging.info("TMP112: Setup finished, sensor ready.")
         else:
             if self.consoleLog:
-                print("Setup failed! Settings incorrect")
+                logging.error("TMP112: Setup failed! Settings incorrect")
     def getTemp(self):
         if self.setupD:
             msg_w = i2c_msg.write(self.addr, [0b00000000])
@@ -90,4 +102,7 @@ class TMP112:
             return temp            
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("TMP112: not available")
+                else:
+                    logging.error("TMP112: Setup not finished")
