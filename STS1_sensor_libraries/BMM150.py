@@ -1,3 +1,5 @@
+import logging
+
 class BMM150:
     poss_addr = [0x10, 0x11, 0x12, 0x13]
     poss_datarate = [10,2,6,8,15,20,25,30]
@@ -13,6 +15,7 @@ class BMM150:
     setDatarate = False
     setAddr = False
     setupD = False
+    Error = False
     consoleLog = True
     def __init__(self, bus):
         self.addr = 0x10
@@ -25,43 +28,52 @@ class BMM150:
             self.addr = address
             self.setAddr = True
         except ValueError:
-            s = "The address (" + str(hex(address)) + ") you entered for the sensor BMM150 does not exist!"
+            s = "BMM150: The address (" + str(hex(address)) + ") you entered for the sensor BMM150 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                logging.error(s)
+            s = "BMM150: Try one of the following:"
             for value in self.poss_addr:
                 s = s + str(hex(value)) + " "
             if self.consoleLog:
-                print(s)
-                print("BMM150 not initialized!!!")
+                logging.info(s)
+                logging.error("BMM150: not initialized!!!")
     def set_datarate(self, rate):
         try:
             self.poss_datarate.index(rate)
             self.datarate = rate
             self.setDatarate = True
         except ValueError:
-            s = "The datarate (" + str(rate) + ") you entered for the sensor BMM150 does not exist!"
+            s = "BMM150: The datarate (" + str(rate) + ") you entered for the sensor BMM150 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                logging.error(s)
+            s = "BMM150: Try one of the following:"
             for value in self.poss_datarate:
                 s = s + str(value) + " "
             if self.consoleLog:
-                print(s)
-                print("BMM150 datarate not set!!!")
+                logging.info(s)
+                logging.error("BMM150: datarate not set!!!")
     def setup(self):
         if self.setAddr and self.setDatarate:
             #all settings correct
-            self.bus.write_byte_data(self.addr, 0x4B, 0b00000001)
-            self.bus.write_byte_data(self.addr, 0x4C, 0b00000000 & (self.poss_datarate_bin[self.poss_datarate.index(self.datarate)] << 3))
-            self.bus.write_byte_data(self.addr, 0x51, 0b00001111)
-            self.bus.write_byte_data(self.addr, 0x52, 0b00001111)
+            try:
+                self.bus.write_byte_data(self.addr, 0x4B, 0b00000001)
+                self.bus.write_byte_data(self.addr, 0x4C, 0b00000000 & (self.poss_datarate_bin[self.poss_datarate.index(self.datarate)] << 3))
+                self.bus.write_byte_data(self.addr, 0x51, 0b00001111)
+                self.bus.write_byte_data(self.addr, 0x52, 0b00001111)
+            except OSError as e:
+                self.Error = True
+                if e.errno == 121:
+                    logging.error("BMM150: Remote I/O Error: The device is not responding on the bus. Therefore it will be ignored")
+                else:
+                    logging.error(f,"BMM150: An error occurred: {e}")
+                return None
+                    
             self.setupD = True
             if self.consoleLog:
-                print("Setup finished, BMM150 ready.")
+                logging.info("BMM150: Setup finished, sensor ready.")
         else:
             if self.consoleLog:
-                print("Setup failed! Settings incorrect")
+                logging.error("BMM150: Setup failed! Settings incorrect")
     def getXRaw(self):
         if self.setupD:
             x_LSB = self.bus.read_byte_data(self.addr, 0x42)
@@ -77,7 +89,10 @@ class BMM150:
             return x_XSB
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("BMM150: not available")
+                else:
+                    logging.error("BMM150: Setup not finished")
     def getYRaw(self):
         if self.setupD:
             y_LSB = self.bus.read_byte_data(self.addr, 0x44)
@@ -92,7 +107,10 @@ class BMM150:
             return y_XSB
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("BMM150: not available")
+                else:
+                    logging.error("BMM150: Setup not finished")
     def getZRaw(self):
         if self.setupD:
             z_LSB = self.bus.read_byte_data(self.addr, 0x42)
@@ -107,7 +125,10 @@ class BMM150:
             return z_XSB           
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("BMM150: not available")
+                else:
+                    logging.error("BMM150: Setup not finished")
     def getXuT(self):
         if self.setupD:
             x_LSB = self.bus.read_byte_data(self.addr, 0x42)
@@ -122,7 +143,10 @@ class BMM150:
             return x_XSB / 3.15076
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("BMM150: not available")
+                else:
+                    logging.error("BMM150: Setup not finished")
     def getYuT(self):
         if self.setupD:
             y_LSB = self.bus.read_byte_data(self.addr, 0x44)
@@ -137,7 +161,10 @@ class BMM150:
             return y_XSB / 3.15076
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("BMM150: not available")
+                else:
+                    logging.error("BMM150: Setup not finished")
     def getZuT(self):
         if self.setupD:
             z_LSB = self.bus.read_byte_data(self.addr, 0x46)
@@ -152,4 +179,7 @@ class BMM150:
             return z_XSB / 6.5536                 
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("BMM150: not available")
+                else:
+                    logging.error("BMM150: Setup not finished")
