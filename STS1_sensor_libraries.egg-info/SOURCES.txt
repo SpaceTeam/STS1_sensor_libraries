@@ -1,0 +1,16 @@
+LICENSE
+README.md
+setup.py
+STS1_sensor_libraries/ADXL345.py
+STS1_sensor_libraries/BME688.py
+STS1_sensor_libraries/BMM150.py
+STS1_sensor_libraries/GUVA_C32.py
+STS1_sensor_libraries/L3GD20H.py
+STS1_sensor_libraries/TMP112.py
+STS1_sensor_libraries/__init__.py
+STS1_sensor_libraries/main.py
+STS1_sensor_libraries.egg-info/PKG-INFO
+STS1_sensor_libraries.egg-info/SOURCES.txt
+STS1_sensor_libraries.egg-info/dependency_links.txt
+STS1_sensor_libraries.egg-info/requires.txt
+STS1_sensor_libraries.egg-info/top_level.txt
