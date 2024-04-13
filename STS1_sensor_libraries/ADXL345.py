@@ -1,3 +1,5 @@
+import logging
+
 class ADXL345:
     poss_addr = [0x1D, 0x3A, 0x3B, 0x53]
     poss_datarate = [0.10,0.2,0.39,0.78,1.56,3.13,6.25,12.5,25,50,100,200,400,800,1600,3200]
@@ -28,30 +30,36 @@ class ADXL345:
             self.addr = address
             self.setAddr = True
         except ValueError:
-            s = "The address (" + str(hex(address)) + ") you entered for the sensor ADXL345 does not exist!"
+            s = "ADXL345: The address (" + str(hex(address)) + ") you entered for the sensor ADXL345 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                #print(s)
+                logging.error(s)
+            s = "ADXL345: Try one of the following:"
             for value in self.poss_addr:
                 s = s + str(hex(value)) + " "
             if self.consoleLog:
-                print(s)
-                print("ADXL345 not initialized!!!")
+                #print(s)
+                logging.info(s)
+                print("ADXL345: not initialized!!!")
+                logging.error("ADXL345: not initialized!!!")
     def set_datarate(self, rate):
         try:
             self.poss_datarate.index(rate)
             self.datarate = rate
             self.setDatarate = True
         except ValueError:
-            s = "The datarate (" + str(rate) + ") you entered for the sensor ADXL345 does not exist!"
+            s = "ADXL345: The datarate (" + str(rate) + ") you entered for the sensor ADXL345 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                #print(s)
+                logging.error(s)
+            s = "ADXL345: Try one of the following:"
             for value in self.poss_datarate:
                 s = s + str(value) + " "
             if self.consoleLog:
-                print(s)
-                print("ADXL345 datarate not set!!!")
+                #print(s)
+                logging.info(s)
+                #print("ADXL345 datarate not set!!!")
+                logging.error("ADXL345 datarate not set!!!")
     def set_range(self, range):
         try:
             self.poss_range.index(range)
@@ -59,27 +67,36 @@ class ADXL345:
             self.resolution = self.range_resolution[self.poss_range.index(range)]
             self.setRange = True
         except ValueError:
-            s = "The range (" + str(range) + ") you entered for the sensor ADXL345 does not exist!"
+            s = "ADXL345: The range (" + str(range) + ") you entered for the sensor ADXL345 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                #print(s)
+                logging.error(s)
+            s = "ADXL345: Try one of the following:"
             for value in self.poss_range:
                 s = s + str(value) + " "
             if self.consoleLog:
-                print(s)
-                print("ADXL345 range not set!!!")
+                logging.info(s)
+                logging.error("ADXL345 range not set!!!")
     def setup(self):
         if self.setAddr and self.setDatarate and self.setRange:
-            #all settings correct
-            self.bus.write_byte_data(self.addr, 0x2C, self.poss_datarate_bin[self.poss_datarate.index(self.datarate)])
-            self.bus.write_byte_data(self.addr, 0x2D, 0b00001000)
-            self.bus.write_byte_data(self.addr, 0x31, 0b00001011 & self.poss_range_bin[self.poss_range.index(self.range)])
+            #all settings correct#
+            try:
+                self.bus.write_byte_data(self.addr, 0x2C, self.poss_datarate_bin[self.poss_datarate.index(self.datarate)])
+                self.bus.write_byte_data(self.addr, 0x2D, 0b00001000)
+                self.bus.write_byte_data(self.addr, 0x31, 0b00001011 & self.poss_range_bin[self.poss_range.index(self.range)])
+            except OSError as e:
+                self.Error = True
+                if e.errno == 121:
+                    logging.error("ADXL345: Remote I/O Error: The device is not responding on the bus. Therefore it will be ignored")
+                else:
+                    logging.error(f,"ADXL345: An error occurred: {e}")
+                return None
             self.setupD = True
             if self.consoleLog:
-                print("Setup finished, ADXL345 ready.")
+                logging.info("ADXL345: Setup finished, sensor ready.")
         else:
             if self.consoleLog:
-                print("Setup failed! Settings incorrect")
+                logging.error("ADXL345: Setup failed! Settings incorrect")
     def getXRaw(self):
         if self.setupD:
             x_LSB = self.bus.read_byte_data(self.addr, 0x32)
@@ -91,7 +108,10 @@ class ADXL345:
             return x
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("ADXL345: not available")
+                else:
+                    logging.error("ADXL345: Setup not finished")
     def getYRaw(self):
         if self.setupD:
             y_LSB = self.bus.read_byte_data(self.addr, 0x34)
@@ -103,7 +123,10 @@ class ADXL345:
             return y
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("ADXL345: not available")
+                else:
+                    logging.error("ADXL345: Setup not finished")
     def getZRaw(self):
         if self.setupD:
             z_LSB = self.bus.read_byte_data(self.addr, 0x36)
@@ -115,7 +138,10 @@ class ADXL345:
             return z            
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("ADXL345: not available")
+                else:
+                    logging.error("ADXL345: Setup not finished")
     def getXGs(self):
         if self.setupD:
             xnew = self.bus.read_i2c_block_data(self.addr, 0x32, 2)
@@ -133,7 +159,10 @@ class ADXL345:
             return x
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("ADXL345: not available")
+                else:
+                    logging.error("ADXL345: Setup not finished")
     def getYGs(self):
         if self.setupD:
             ynew = self.bus.read_i2c_block_data(self.addr, 0x34, 2)
@@ -151,7 +180,10 @@ class ADXL345:
             return y
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("ADXL345: not available")
+                else:
+                    logging.error("ADXL345: Setup not finished")
     def getZGs(self):
         if self.setupD:
             znew = self.bus.read_i2c_block_data(self.addr, 0x36, 2)
@@ -170,4 +202,7 @@ class ADXL345:
             return z
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    logging.error("ADXL345: not available")
+                else:
+                    logging.error("ADXL345: Setup not finished")

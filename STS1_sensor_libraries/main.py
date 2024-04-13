@@ -96,7 +96,7 @@ class Sensors():
             self.BMM.setup()
         if self.GUVA_C32stat:
             self.GUVA = GUVA_C32(self.bus)
-            self.GUVA.set_address(0x00)
+            self.GUVA.set_address(0x39)
             self.GUVA.set_resolution(100)
             self.GUVA.set_range(128)
             self.GUVA.setup()
