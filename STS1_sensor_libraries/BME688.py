@@ -4,6 +4,7 @@ def twos_comp(val, bits):
     return val
 
 import time
+import logging
 
 class bmeData:
     temperature = 0
@@ -66,6 +67,7 @@ class BME688:
     setGasTime = 0
     setIIR = 0
     setupD = False
+    Error = False
     consoleLog = True
     
     ambientTemp = 25
@@ -106,127 +108,138 @@ class BME688:
             self.addr = address
             self.setAddr = True
         except ValueError:
-            s = "The address (" + str(hex(address)) + ") you entered for the sensor BME688 does not exist!"
+            s = "BME688: The address (" + str(hex(address)) + ") you entered for the sensor BME688 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                logging.error(s)
+            s = "BME688: Try one of the following:"
             for value in self.poss_addr:
                 s = s + str(hex(value)) + " "
             if self.consoleLog:
-                print(s)
-                print("BME688 not initialized!!!")
+                logging.info(s)
+                logging.error("BME688: not initialized!!!")
     def set_tempOSR(self, OSR): #temperateure Oversamplingrate
         try:
             self.poss_tempOSR.index(OSR)
             self.tempOSR = OSR
             self.setTempOSR = True 
         except ValueError:
-            s = "The temperature oversamplingrate (" + str(OSR) + ") you entered for the sensor BME688 does not exist!"
+            s = "BME688: The temperature oversamplingrate (" + str(OSR) + ") you entered for the sensor BME688 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                logging.error(s)
+            s = "BME688: Try one of the following:"
             for value in self.poss_tempOSR:
                 s = s + str(value) + " "
             if self.consoleLog:
-                print(s)
-                print("BME688 temperature oversamplingrate not set!!!")
+                logging.info(s)
+                logging.error("BME688: temperature oversamplingrate not set!!!")
     def set_humOSR(self, OSR): #humidity Oversamplingrate
         try:
             self.poss_humOSR.index(OSR)
             self.humOSR = OSR
             self.setHumOSR = True 
         except ValueError:
-            s = "The humidity oversamplingrate (" + str(OSR) + ") you entered for the sensor BME688 does not exist!"
+            s = "BME688: The humidity oversamplingrate (" + str(OSR) + ") you entered for the sensor BME688 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                logging.error(s)
+            s = "BME688: Try one of the following:"
             for value in self.poss_humOSR:
                 s = s + str(value) + " "
             if self.consoleLog:
-                print(s)
-                print("BME688 humidity oversamplingrate not set!!!")
+                logging.info(s)
+                logging.error("BME688: humidity oversamplingrate not set!!!")
     def set_pressOSR(self, OSR): #pressure Oversamplingrate
         try:
             self.poss_pressOSR.index(OSR)
             self.pressOSR = OSR
             self.setPressOSR = True 
         except ValueError:
-            s = "The pressure oversamplingrate (" + str(OSR) + ") you entered for the sensor BME688 does not exist!"
+            s = "BME688: The pressure oversamplingrate (" + str(OSR) + ") you entered for the sensor BME688 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                logging.error(s)
+            s = "BME688: Try one of the following:"
             for value in self.poss_pressOSR:
                 s = s + str(value) + " "
             if self.consoleLog:
-                print(s)
-                print("BME688 pressure oversamplingrate not set!!!")
+                logging.info(s)
+                logging.error("BME688: pressure oversamplingrate not set!!!")
     def set_IIR(self, IIR):
         try:
             self.poss_IIR.index(IIR)
             self.IIR = IIR
             self.setIIR = True 
         except ValueError:
-            s = "The IIR value (" + str(IIR) + ") you entered for the sensor BME688 does not exist!"
+            s = "BME688: The IIR value (" + str(IIR) + ") you entered for the sensor BME688 does not exist!"
             if self.consoleLog:
-                print(s)
-            s = "Try one of the following:"
+                logging.error(s)
+            s = "BME688: Try one of the following:"
             for value in self.poss_IIR:
                 s = s + str(value) + " "
             if self.consoleLog:
-                print(s)
-                print("BME688 temperature oversamplingrate not set!!!")
+                logging.info(s)
+                logging.error("BME688: temperature oversamplingrate not set!!!")
     def set_gasTemp(self, temp):
         if temp >= 200 and temp <= 400:
             self.gasTemp = temp
             self.setGasTemp = True
         else:
-            s = "The temperature value (" + str(temp) + ") you entered for the sensor BME688 is outside of the possible range!"
-            print(s)
-            s = "Try a value between 200-400°C"
-            print(s)
-            print("BME688 temperature oversamplingrate not set!!!")
+            s = "BME688: The temperature value (" + str(temp) + ") you entered for the sensor BME688 is outside of the possible range!"
+            logging.error(s)
+            s = "BME688: Try a value between 200-400°C"
+            logging.info(s)
+            logging.error("BME688: temperature oversamplingrate not set!!!")
     def set_gasTime(self, time):
         if time > 0 and time < 4096:
             self.gasTime = time
             self.setGasTime = True
         else:
-            s = "The time (" + str(temp) + ") you entered for the sensor BME688 is outside of the possible range!"
-            print(s)
-            s = "Try a value between 1-4096ms"
-            print(s)
-            print("BME688 temperature oversamplingrate not set!!!")
+            s = "BME688: The time (" + str(temp) + ") you entered for the sensor BME688 is outside of the possible range!"
+            logging.error(s)
+            s = "BME688: Try a value between 1-4096ms"
+            logging.info(s)
+            logging.error("BME688: temperature oversamplingrate not set!!!")
     def setup(self):
         if self.setAddr and self.setTempOSR and self.setIIR and self.setHumOSR and self.setPressOSR:
-            
-            if self.setGasTemp and self.setGasTime:
+            try:
+                if self.setGasTemp and self.setGasTime:
                 #Enable GasTemp
                 #print("setGas")
-                self.bus.write_byte_data(self.addr, 0x72, 0b00000000 + (self.poss_humOSR_bin[self.poss_humOSR.index(self.humOSR)] << 0)) #set humidity oversamplingrate
-                self.bus.write_byte_data(self.addr, 0x74, 0b00000000 + (self.poss_tempOSR_bin[self.poss_tempOSR.index(self.tempOSR)] << 5) + (self.poss_pressOSR_bin[self.poss_pressOSR.index(self.pressOSR)] << 2)) #set temperature oversamplingrate
-                self.bus.write_byte_data(self.addr, 0x75, 0b00000000 + (self.poss_IIR_bin[self.poss_IIR.index(self.IIR)] << 2))
                 
-                self.bus.write_byte_data(self.addr, 0x71, 0b00100000) #enable gas conversion and activate heater step 0
-                if self.gasTime / 1 <= 64:
-                    gasTimeSet = 0b00000000 + int(self.gasTime)
-                elif self.gasTime / 4 <= 64:
-                    gasTimeSet = 0b01000000 + int(self.gasTime/4)
-                elif self.gasTime / 16 <= 64:
-                    gasTimeSet = 0b10000000 + int(self.gasTime/16)
-                elif self.gasTime / 64 <= 64:
-                    gasTimeSet = 0b11000000 + int(self.gasTime/64)
-                #print("gasTimeSet: {0:08b}".format(gasTimeSet))
-                self.bus.write_byte_data(self.addr, 0x64, gasTimeSet)                
-                self.setGas = 1
-            else:
-                #only Temperature, Humidity and Pressure
-                
-                self.bus.write_byte_data(self.addr, 0x72, 0b00000000 + (self.poss_humOSR_bin[self.poss_humOSR.index(self.humOSR)] << 0)) #set humidity oversamplingrate
-                self.bus.write_byte_data(self.addr, 0x74, 0b00000000 + (self.poss_tempOSR_bin[self.poss_tempOSR.index(self.tempOSR)] << 5) + (self.poss_pressOSR_bin[self.poss_pressOSR.index(self.pressOSR)] << 2)) #set temperature oversamplingrate
-                self.bus.write_byte_data(self.addr, 0x75, 0b00000000 + (self.poss_IIR_bin[self.poss_IIR.index(self.IIR)] << 2))
-                self.bus.write_byte_data(self.addr, 0x71, 0b00000000) 
-                self.bus.write_byte_data(self.addr, 0x64, 0b00000000) 
-                self.bus.write_byte_data(self.addr, 0x5A, 0b00000000)
-                self.bus.write_byte_data(self.addr, 0x70, 0b00001000)
+                    self.bus.write_byte_data(self.addr, 0x72, 0b00000000 + (self.poss_humOSR_bin[self.poss_humOSR.index(self.humOSR)] << 0)) #set humidity oversamplingrate
+                    self.bus.write_byte_data(self.addr, 0x74, 0b00000000 + (self.poss_tempOSR_bin[self.poss_tempOSR.index(self.tempOSR)] << 5) + (self.poss_pressOSR_bin[self.poss_pressOSR.index(self.pressOSR)] << 2)) #set temperature oversamplingrate
+                    self.bus.write_byte_data(self.addr, 0x75, 0b00000000 + (self.poss_IIR_bin[self.poss_IIR.index(self.IIR)] << 2))
+                    
+                    self.bus.write_byte_data(self.addr, 0x71, 0b00100000) #enable gas conversion and activate heater step 0
+                    if self.gasTime / 1 <= 64:
+                        gasTimeSet = 0b00000000 + int(self.gasTime)
+                    elif self.gasTime / 4 <= 64:
+                        gasTimeSet = 0b01000000 + int(self.gasTime/4)
+                    elif self.gasTime / 16 <= 64:
+                        gasTimeSet = 0b10000000 + int(self.gasTime/16)
+                    elif self.gasTime / 64 <= 64:
+                        gasTimeSet = 0b11000000 + int(self.gasTime/64)
+                    #print("gasTimeSet: {0:08b}".format(gasTimeSet))
+                    self.bus.write_byte_data(self.addr, 0x64, gasTimeSet)                
+                    self.setGas = 1
+                else:
+                    #only Temperature, Humidity and Pressure
+                    
+                    self.bus.write_byte_data(self.addr, 0x72, 0b00000000 + (self.poss_humOSR_bin[self.poss_humOSR.index(self.humOSR)] << 0)) #set humidity oversamplingrate
+                    self.bus.write_byte_data(self.addr, 0x74, 0b00000000 + (self.poss_tempOSR_bin[self.poss_tempOSR.index(self.tempOSR)] << 5) + (self.poss_pressOSR_bin[self.poss_pressOSR.index(self.pressOSR)] << 2)) #set temperature oversamplingrate
+                    self.bus.write_byte_data(self.addr, 0x75, 0b00000000 + (self.poss_IIR_bin[self.poss_IIR.index(self.IIR)] << 2))
+                    self.bus.write_byte_data(self.addr, 0x71, 0b00000000) 
+                    self.bus.write_byte_data(self.addr, 0x64, 0b00000000) 
+                    self.bus.write_byte_data(self.addr, 0x5A, 0b00000000)
+                    self.bus.write_byte_data(self.addr, 0x70, 0b00001000)
+            except OSError as e:
+                self.Error = True
+                if e.errno == 121:
+                    #print("Remote I/O Error: The device is not responding on the bus. Therefore it will be ignored")
+                    logging.error("BME688: Remote I/O Error: The device is not responding on the bus. Therefore it will be ignored")
+                else:
+                    #print(f"An error occurred: {e}")
+                    logging.error(f"BME688: An error occurred: {e}")
+                return None
+                    
                 
             #all settings correct
             
@@ -325,10 +338,10 @@ class BME688:
                     self.tempRES = 20 #20bit
                 else:
                     self.tempRES = 16 + (self.poss_tempOSR_bin[self.poss_tempOSR.index(self.tempOSR)] - 1) 
-                print("Setup finished, BME688 ready.")
+                logging.info("BME688: Setup finished, sensor ready.")
         else:
             if self.consoleLog:
-                print("Setup failed! Settings incorrect")
+                logging.error("BME688: Setup failed! Settings incorrect")
     def getVal(self):
         if self.setupD:
             #initiate force mode -> single measurement
@@ -438,4 +451,9 @@ class BME688:
             return self.output                 
         else:
             if self.consoleLog:
-                print("Setup not finished")
+                if self.Error:
+                    #print("GUVA_C32 not available")
+                    logging.error("BME688: not available")
+                else:
+                    #print("Setup not finished")
+                    logging.error("BME688: Setup not finished")
