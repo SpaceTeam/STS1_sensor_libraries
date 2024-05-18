@@ -1,4 +1,5 @@
 import logging
+import time
 
 class BMM150:
     poss_addr = [0x10, 0x11, 0x12, 0x13]
@@ -57,6 +58,7 @@ class BMM150:
             #all settings correct
             try:
                 self.bus.write_byte_data(self.addr, 0x4B, 0b00000001)
+                time.sleep(1)
                 self.bus.write_byte_data(self.addr, 0x4C, 0b00000000 & (self.poss_datarate_bin[self.poss_datarate.index(self.datarate)] << 3))
                 self.bus.write_byte_data(self.addr, 0x51, 0b00001111)
                 self.bus.write_byte_data(self.addr, 0x52, 0b00001111)
@@ -65,7 +67,7 @@ class BMM150:
                 if e.errno == 121:
                     logging.error("BMM150: Remote I/O Error: The device is not responding on the bus. Therefore it will be ignored")
                 else:
-                    logging.error(f,"BMM150: An error occurred: {e}")
+                    logging.error(f"BMM150: An error occurred: {e}")
                 return None
                     
             self.setupD = True
