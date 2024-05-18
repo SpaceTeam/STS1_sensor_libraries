@@ -20,6 +20,10 @@ class ADXL345:
     setupD = False
     Error = False
     consoleLog = True
+
+    xoff = 0
+    yoff = 0
+    zoff = 0
     def __init__(self, bus):
         self.addr = 0x53
         self.bus = bus
@@ -78,6 +82,10 @@ class ADXL345:
             if self.consoleLog:
                 logging.info(s)
                 logging.error("ADXL345 range not set!!!")
+    def set_offset(self, x, y, z):
+        self.xoff = x
+        self.yoff = y
+        self.zoff = z
     def setup(self):
         if self.setAddr and self.setDatarate and self.setRange:
             #all settings correct#
@@ -157,6 +165,7 @@ class ADXL345:
             #if (x & (1<<(16-1))):
                 #x = x - (1<<16)
             x = (x / (self.resolution>>1)) * self.range
+            x = x + self.xoff
             return x
         else:
             if self.consoleLog:
@@ -178,6 +187,7 @@ class ADXL345:
             #if (y & (1<<(16-1))):
                 #y = y - (1<<16)
             y = (y / (self.resolution>>1)) * self.range
+            y = y + self.yoff
             return y
         else:
             if self.consoleLog:
@@ -200,6 +210,7 @@ class ADXL345:
                 z = z * (-1)
 
             z = (z / (self.resolution>>1)) * self.range
+            z = z + self.zoff
             return z
         else:
             if self.consoleLog:
