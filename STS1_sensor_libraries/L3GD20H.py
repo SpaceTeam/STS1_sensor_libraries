@@ -1,5 +1,10 @@
 import logging
 
+def twos_comp(val, bits):
+    if val & (1 << (bits - 1)) != 0:
+        val = val - (1 << bits)
+    return val
+
 class L3GD20H:
     poss_addr = [0x6A, 0x6B]
     poss_datarate = [12.5,25,50,100,200,400,800]
