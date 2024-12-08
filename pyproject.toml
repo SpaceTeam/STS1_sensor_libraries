@@ -1,7 +1,7 @@
 [project]
-name = "sts1-sensor-libraries"
-version = "0.2.0"
-description = "A sensor library for the CubeSat STS1 (TU Wien Space Team)"
+name = "sts1_sensor_libraries"
+version = "0.3.0"
+description = "A sensor library for the CubeSat STS1 (TU Wien Space Team)."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -11,3 +11,8 @@ authors = [
   {name = "Simon Köfinger", email = "simon.koefinger@spaceteam.at"},
   {name = "Florian Rohrer", email = "florian.rohrer@spaceteam.at"},
 ]
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

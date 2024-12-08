@@ -1,7 +1,0 @@
-Metadata-Version: 2.1
-Name: STS1-sensor-libraries
-Version: 0.1
-Summary: A sensor library for the CubeSat STS1 (TU Wien Space Team)
-Author: Simon Köfinger
-Author-email: simon.koefinger@spaceteam.at
-License-File: LICENSE
