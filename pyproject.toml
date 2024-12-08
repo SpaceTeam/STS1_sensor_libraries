@@ -1,0 +1,13 @@
+[project]
+name = "sts1-sensor-libraries"
+version = "0.2.0"
+description = "A sensor library for the CubeSat STS1 (TU Wien Space Team)"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "smbus2>=0.5.0",
+]
+authors = [
+  {name = "Simon Köfinger", email = "simon.koefinger@spaceteam.at"},
+  {name = "Florian Rohrer", email = "florian.rohrer@spaceteam.at"},
+]
