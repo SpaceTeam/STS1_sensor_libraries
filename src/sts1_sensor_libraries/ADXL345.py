@@ -98,7 +98,7 @@ class ADXL345:
                 if e.errno == 121:
                     logging.error("ADXL345: Remote I/O Error: The device is not responding on the bus. Therefore it will be ignored")
                 else:
-                    logging.error(f,"ADXL345: An error occurred: {e}")
+                    logging.error(f"ADXL345: An error occurred: {e}")
                 return None
             self.setupD = True
             if self.consoleLog:

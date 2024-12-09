@@ -23,6 +23,7 @@ pip install sts1_sensor_libraries
 
 If you want the latest development version, install it from the repository url:
 ```bash
+# Not recommended
 pip install git+git://github.com/SpaceTeam/STS1_sensor_libraries.git@master
 ```
 
@@ -36,4 +37,4 @@ pip install git+git://github.com/SpaceTeam/STS1_sensor_libraries.git@master
 * Clone this repo: `git clone https://github.com/SpaceTeam/STS1_sensor_libraries`
 * Switch into the directory.
 * Run `uv sync`. This creates a `.venv` folder and installs all necessary dependencies.
-* Run one of the examples: `uv run python examples/ADXL345Example.py`. 
+* Run one of the examples: `uv run python examples/ADXL345Example.py`
