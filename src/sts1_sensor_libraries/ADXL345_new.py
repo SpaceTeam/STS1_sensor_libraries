@@ -1,0 +1,103 @@
+
+class ADXL345_new:
+    possible_addresses = [0x1D, 0x3A, 0x3B, 0x53]
+    possible_datarates = [0.10, 0.20, 0.39, 0.78, 1.56, 3.13, 6.25, 12.5, 25, 50, 100, 200, 400, 800, 1600, 3200]
+    possible_ranges = [2, 4, 8, 16]
+
+    def __init__(self, bus, address=0x53, range=2, datarate=3200, x_offset=0, y_offset=0, z_offset=0):
+        self.bus = bus
+        self._address = address
+        self._datarate = datarate
+        self._range = range
+        self._offsets = {"x": x_offset, "y": y_offset, "z": z_offset}
+
+        self.bus.write_byte_data(self.address, 0x2C, bin(self.poss_datarate.index(self.datarate)))
+        self.bus.write_byte_data(self.address, 0x2D, 0b00001000)
+        self.bus.write_byte_data(self.address, 0x31, 0b00001011 & bin(self.poss_range.index(self.range)))
+
+    @property
+    def address(self):
+        return self._address
+
+    @address.setter
+    def address(self, address):
+        if address not in self.possible_addresses:
+            raise ValueError(f"The address {hex(address)} does not exist.")
+        self._address = address
+
+    @property
+    def datarate(self):
+        return self._datarate
+
+    @datarate.setter
+    def datarate(self, datarate):
+        if datarate not in self.possible_datarates:
+            raise ValueError(f"The datarate {hex(datarate)} does not exist.")
+        self._datarate = datarate
+
+    @property
+    def range(self):
+        return self._range
+
+    @range.setter
+    def range(self, range):
+        if range not in self.possible_ranges:
+            raise ValueError(f"The range {hex(range)} does not exist.")
+        self._range = range
+
+    @property
+    def x_offset(self):
+        return self._offsets["x"]
+    
+    @x_offset.setter
+    def x_offset(self, x_offset):
+        self._offsets["x"] = x_offset
+
+    @property
+    def y_offset(self):
+        return self._offsets["y"]
+    
+    @y_offset.setter
+    def y_offset(self, y_offset):
+        self._offsets["y"] = y_offset
+    
+    @property
+    def z_offset(self):
+        return self._offsets["z"]
+    
+    @z_offset.setter
+    def z_offset(self, z_offset):
+        self._offsets["z"] = z_offset
+
+    def _get_raw(self, var):
+        addr = {"x": 0x32, "y": 0x34, "z": 0x36}[var]
+        lsb, msb = self.bus.read_i2c_block_data(self.address, addr, 2)
+        k = (msb << 8) | (lsb << 0)
+        if (k >> (16 - 1)) == 0b1:
+            k = (1 << 15) - (k & 0b0111111111111111)
+            k = k * (-1)                
+        return k
+    
+    def get_x_raw(self):
+        return self._get_raw("x")
+    
+    def get_y_raw(self):
+        return self._get_raw("y")
+    
+    def get_z_raw(self):
+        return self._get_raw("z")
+                    
+    def _get_g(self, var):
+        k = self._get_raw(var)
+        k = (k / (0b1111111111 >> 1)) * self.range
+        k = k + self.offset[var]
+        return k
+
+    def get_x_g(self):
+        return self._get_g("x")
+    
+    def get_y_g(self):
+        return self._get_g("y")
+
+    def get_z_g(self):
+        return self._get_g("z")

@@ -3,15 +3,12 @@ from smbus2 import SMBus
 import time
 
 with SMBus(1) as bus:
-    accel = ADXL345(bus)
-    accel.set_address(0x53)
-    accel.set_range(2)
-    accel.set_datarate(3200)
-    accel.set_offset(-0.06, 0.03, 0.06)
-    accel.setup()
+    accel = ADXL345(bus, address=0x53, range=2, datarate=3200, 
+                    x_offset=-0.06, y_offset=0.03, z_offset=0.06)
+    
     while True:
-        s = f"X: {accel.getXGs():.2fg}"
-        s += f", Y: {accel.getYGs():.2fg}"
-        s += f", Z: {accel.getZGs():.2fg}"
+        s = f"X: {accel.get_x_g():.2fg}"
+        s += f", Y: {accel.get_y_g():.2fg}"
+        s += f", Z: {accel.get_z_g():.2fg}"
         print(s)
         time.sleep(.1)
