@@ -7,8 +7,6 @@ with SMBus(1) as bus:
                     x_offset=-0.06, y_offset=0.03, z_offset=0.06)
     
     while True:
-        s = f"X: {accel.get_x_g():.2fg}"
-        s += f", Y: {accel.get_y_g():.2fg}"
-        s += f", Z: {accel.get_z_g():.2fg}"
-        print(s)
+        x, y, z = accel.get_g()
+        print(f"X: {x:.2f}g, Y: {y:.2f}g, Z: {z:.2f}g")
         time.sleep(.1)
