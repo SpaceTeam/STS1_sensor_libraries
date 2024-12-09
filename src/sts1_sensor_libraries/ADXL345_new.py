@@ -6,14 +6,14 @@ class ADXL345_new:
 
     def __init__(self, bus, address=0x53, range=2, datarate=3200, x_offset=0, y_offset=0, z_offset=0):
         self.bus = bus
-        self._address = address
-        self._datarate = datarate
-        self._range = range
+        self.address = address
+        self.datarate = datarate
+        self.range = range
         self._offsets = {"x": x_offset, "y": y_offset, "z": z_offset}
 
-        self.bus.write_byte_data(self.address, 0x2C, bin(self.poss_datarate.index(self.datarate)))
-        self.bus.write_byte_data(self.address, 0x2D, 0b00001000)
-        self.bus.write_byte_data(self.address, 0x31, 0b00001011 & bin(self.poss_range.index(self.range)))
+        self.bus.write_byte_data(self.address, 0x2C, bin(self.possible_datarates.index(self.datarate)))
+        self.bus.write_byte_data(self.address, 0x2D, 0b1000)
+        self.bus.write_byte_data(self.address, 0x31, 0b1011 & bin(self.possible_ranges.index(self.range)))
 
     @property
     def address(self):
@@ -74,7 +74,7 @@ class ADXL345_new:
         lsb, msb = self.bus.read_i2c_block_data(self.address, addr, 2)
         k = (msb << 8) | (lsb << 0)
         if (k >> (16 - 1)) == 0b1:
-            k = (1 << 15) - (k & 0b0111111111111111)
+            k = (1 << 15) - (k & 0b111111111111111)
             k = k * (-1)                
         return k
     
@@ -89,7 +89,7 @@ class ADXL345_new:
                     
     def _get_g(self, var):
         k = self._get_raw(var)
-        k = (k / (0b1111111111 >> 1)) * self.range
+        k = (k / (0b111111111)) * self.range
         k = k + self.offset[var]
         return k
 
