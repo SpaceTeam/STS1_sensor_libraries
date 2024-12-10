@@ -3,6 +3,9 @@ import os
 from smbus2 import SMBus
 
 class ADXL345:
+    """Digital accelerometer.
+    """
+    
     possible_addresses = [0x1D, 0x3A, 0x3B, 0x53]
     possible_datarates = [0.10, 0.20, 0.39, 0.78, 1.56, 3.13, 6.25, 12.5, 25, 50, 100, 200, 400, 800, 1600, 3200]
     possible_ranges = [2, 4, 8, 16]

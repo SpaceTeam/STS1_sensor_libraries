@@ -1,14 +1,10 @@
-import STS1_sensor_libraries as STS1
-from smbus2 import SMBus
+from sts1_sensor_libraries import ADXL345
 import time
 
-with SMBus(1) as bus:
-    ADXL = STS1.ADXL345(bus)
-    ADXL.set_address(0x53)
-    ADXL.set_range(2)
-    ADXL.set_datarate(3200)
-    ADXL.set_offset(-0.06,+0.03,0.06)
-    ADXL.setup()
-    while True:
-        print("X: %.2fg, Y: %.2fg Z: %.2fg" % (ADXL.getXGs(), ADXL.getYGs(), ADXL.getZGs()))
-        time.sleep(.1)
+accel = ADXL345(address=0x53, range=2, datarate=3200, 
+                x_offset=-0.06, y_offset=0.03, z_offset=0.06)
+
+while True:
+    x, y, z = accel.get_g()
+    print(f"X: {x:.2f}g, Y: {y:.2f}g, Z: {z:.2f}g")
+    time.sleep(.1)

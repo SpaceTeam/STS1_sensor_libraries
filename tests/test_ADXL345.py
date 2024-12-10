@@ -17,11 +17,11 @@ def test_class_creation4():
         ADXL345(bus=bus, address=0x53)
 
 def test_get_g():
-    accel = ADXL345(address=0x53)
+    accel = ADXL345()
     accel.get_g()
 
 def test_get_g_raw():
-    accel = ADXL345(address=0x53)
+    accel = ADXL345()
     accel.get_g_raw()
 
 def test_set_wrong_address():

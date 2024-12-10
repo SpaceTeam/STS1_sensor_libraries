@@ -16,6 +16,7 @@ class TMP112:
     setupD = False
     Error = False
     consoleLog = True
+    
     def __init__(self, bus):
         self.addr = 0x48
         self.bus = bus
