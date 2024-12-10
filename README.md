@@ -27,13 +27,32 @@ If you want the latest development version, install it from the repository url:
 pip install git+git://github.com/SpaceTeam/STS1_sensor_libraries.git@master
 ```
 
-### Configure the Package
+### On the Raspberry Pi
 
+* Open a terminal on the Raspberry Pi (e.g. via SSH).
+* [Activate the I2C interface](https://www.raspberrypi-spy.co.uk/2014/11/enabling-the-i2c-interface-on-the-raspberry-pi/): `sudo raspi-config`
+* Reboot `sudo reboot now` then reconnect.
+* Run `sudo apt-get install i2c-tools`
+* Run `ls /dev/i2c*`. Note the last number that apprears. E.g. for `/dev/i2c-1` this would be `1`.
+* Run `i2cdetect -y 1`. You may change that last number according to what you saw in the previous step.
+* If you see a grid of dashes `--` with some numbers, this means some sensors were recognized. For example:
+```
+flo@raspberrypi:~ $ sudo i2cdetect -y 1
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- --
+10: 10 -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: -- -- -- -- -- -- -- -- 48 -- -- -- -- -- -- --
+50: -- -- -- 53 -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- 6a -- -- -- -- --
+70: -- -- -- -- -- -- 76 --
+```
 
 ## Installation for Developers
 
 * Install the [package manager uv](https://docs.astral.sh/uv/getting-started/installation/): `curl -LsSf https://astral.sh/uv/install.sh | sh`
-* Add its path to your `~/.bashrc` such that the command `uv` is available.
+* Add its path to your `~/.bashrc` such that the command `uv` is available: `export PATH=$HOME/.local/bin:$PATH`
 * Clone this repo: `git clone https://github.com/SpaceTeam/STS1_sensor_libraries`
 * Switch into the directory.
 * Run `uv sync`. This creates a `.venv` folder and installs all necessary dependencies.

@@ -1,3 +1,5 @@
+import os
+
 from smbus2 import SMBus
 
 class ADXL345:
@@ -7,11 +9,11 @@ class ADXL345:
 
     def __init__(self, bus=None, address=0x53, range=2, datarate=3200, x_offset=0, y_offset=0, z_offset=0):
         if bus is None:
-            self.bus = SMBus(1)
             self.manage_bus = True
+            self.bus = SMBus(os.environ.get("STS1_SENSORS_I2C_ADDRESS", 1))
         else:
-            self.bus = bus
             self.manage_bus = False
+            self.bus = bus
             
         self.address = address
         self.datarate = datarate
