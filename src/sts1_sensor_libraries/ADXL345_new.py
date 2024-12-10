@@ -48,7 +48,7 @@ class ADXL345_new:
 
     def _get_g_raw(self, var):
         lsb, msb = self.bus.read_i2c_block_data(self.address, self.xyz_addresses[var], 2)
-        k = (msb << 8) | (lsb << 0)
+        k = (msb << 8) | lsb
         if (k >> 15) == 1:
             k = (1 << 15) - (k & 0b111111111111111)
             k = k * (-1)                
