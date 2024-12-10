@@ -9,7 +9,7 @@ class ADXL345_new:
         self.address = address
         self.datarate = datarate
         self.range = range
-        self._offsets = {"x": x_offset, "y": y_offset, "z": z_offset}
+        self.offsets = {"x": x_offset, "y": y_offset, "z": z_offset}
         self.xyz_addresses = {"x": 0x32, "y": 0x34, "z": 0x36}
 
         self.bus.write_byte_data(self.address, 0x2C, bin(self.possible_datarates.index(self.datarate)))
@@ -46,30 +46,6 @@ class ADXL345_new:
             raise ValueError(f"The range {hex(range)} does not exist.")
         self._range = range
 
-    @property
-    def x_offset(self):
-        return self._offsets["x"]
-    
-    @x_offset.setter
-    def x_offset(self, x_offset):
-        self._offsets["x"] = x_offset
-
-    @property
-    def y_offset(self):
-        return self._offsets["y"]
-    
-    @y_offset.setter
-    def y_offset(self, y_offset):
-        self._offsets["y"] = y_offset
-    
-    @property
-    def z_offset(self):
-        return self._offsets["z"]
-    
-    @z_offset.setter
-    def z_offset(self, z_offset):
-        self._offsets["z"] = z_offset
-
     def _get_g_raw(self, var):
         lsb, msb = self.bus.read_i2c_block_data(self.address, self.xyz_addresses[var], 2)
         k = (msb << 8) | (lsb << 0)
@@ -84,7 +60,7 @@ class ADXL345_new:
     def _get_g(self, var):
         k = self._get_g_raw(var)
         k = (k / (0b111111111)) * self.range
-        k = k + self.offset[var]
+        k = k + self.offsets[var]
         return k
 
     def get_g(self):
