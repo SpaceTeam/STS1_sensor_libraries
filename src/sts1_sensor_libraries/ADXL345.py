@@ -21,9 +21,9 @@ class ADXL345:
         self.offsets = {"x": x_offset, "y": y_offset, "z": z_offset}
         self.xyz_addresses = {"x": 0x32, "y": 0x34, "z": 0x36}
 
-        self.bus.write_byte_data(self.address, 0x2C, bin(self.possible_datarates.index(self.datarate)))
+        self.bus.write_byte_data(self.address, 0x2C, self.possible_datarates.index(self.datarate))
         self.bus.write_byte_data(self.address, 0x2D, 0b1000)
-        self.bus.write_byte_data(self.address, 0x31, 0b1011 & bin(self.possible_ranges.index(self.range)))
+        self.bus.write_byte_data(self.address, 0x31, 0b1011 & self.possible_ranges.index(self.range))
 
     def __del__(self):
         if self.manage_bus:
