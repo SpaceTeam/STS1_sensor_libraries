@@ -23,7 +23,9 @@ class ADXL345_new:
     @address.setter
     def address(self, address):
         if address not in self.possible_addresses:
-            raise ValueError(f"The address {hex(address)} does not exist.")
+            s = f"The address {hex(address)} does not exist."
+            s += f" Choose one of {self.possible_addresses}."
+            raise ValueError(s)
         self._address = address
 
     @property
@@ -33,7 +35,9 @@ class ADXL345_new:
     @datarate.setter
     def datarate(self, datarate):
         if datarate not in self.possible_datarates:
-            raise ValueError(f"The datarate {hex(datarate)} does not exist.")
+            s = f"The datarate {hex(datarate)} does not exist."
+            s += f" Choose one of {self.possible_datarates}."
+            raise ValueError(s)
         self._datarate = datarate
 
     @property
@@ -43,7 +47,9 @@ class ADXL345_new:
     @range.setter
     def range(self, range):
         if range not in self.possible_ranges:
-            raise ValueError(f"The range {hex(range)} does not exist.")
+            s = f"The range {hex(range)} does not exist."
+            s += f" Choose one of {self.possible_ranges}."
+            raise ValueError(s)
         self._range = range
 
     def _get_g_raw(self, var):
