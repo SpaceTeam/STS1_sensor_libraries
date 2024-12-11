@@ -95,7 +95,7 @@ class L3GD20H:
                 if e.errno == 121:
                     logging.error("L3GD20H: Remote I/O Error: The device is not responding on the bus. Therefore it will be ignored")
                 else:
-                    logging.error(f,"L3GD20H: An error occurred: {e}")
+                    logging.error(f"L3GD20H: An error occurred: {e}")
                 return None
  
             self.setupD = True
