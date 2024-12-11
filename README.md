@@ -1,5 +1,5 @@
 
-# STS1_sensor_libraries
+# sts1-sensor-libraries 
 
 Streamline the process of handling sensors on the Raspi-Hat / EDU module.
 
@@ -34,7 +34,7 @@ flo@raspberrypi:~ $ sudo i2cdetect -y 1
 70: -- -- -- -- -- -- 76 --
 ```
 
-### Installing the Python Package on the Raspberry Pi
+## Installing the Python Package on the Raspberry Pi
 
 If you want the latest stable version, install it like so:
 ```bash
@@ -43,6 +43,7 @@ pip install sts1-sensor-libraries
 
 ## Installation for Package Developers
 
+* Install [just](https://github.com/casey/just?tab=readme-ov-file#pre-built-binaries)
 * Install the [package manager uv](https://docs.astral.sh/uv/getting-started/installation/): `curl -LsSf https://astral.sh/uv/install.sh | sh`
 * Add its path to your `~/.bashrc` such that the command `uv` is available: `export PATH=$HOME/.local/bin:$PATH`
 * Clone this repo: `git clone https://github.com/SpaceTeam/STS1_sensor_libraries`
