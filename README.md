@@ -1,5 +1,7 @@
 
-# sts1-sensor-libraries 
+# sts1-sensor-libraries
+
+[Github](https://github.com/SpaceTeam/STS1_sensor_libraries) | [PyPI](https://pypi.org/project/sts1-sensor-libraries/)
 
 Streamline the process of handling sensors on the Raspi-Hat / EDU module.
 
