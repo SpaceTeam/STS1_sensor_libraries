@@ -23,20 +23,16 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Build HTML
-        uses: ammaraskar/sphinx-action@master
-        with:
-          docs-folder: "docs/source"
-          pre-build-command: ". .venv/bin/activate"
-          build-command: "sphinx-build -b html . _build"
+        run: uv run sphinx-build docs/source docs/build/html
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: html-docs
-          path: docs/_build/html/
+          path: docs/build/html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/_build/html
+          publish_dir: docs/build/html
