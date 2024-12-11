@@ -26,7 +26,7 @@ jobs:
         uses: ammaraskar/sphinx-action@master
         with:
           docs-folder: "docs/source"
-          pre-build-command: "source .venv/bin/activate"
+          pre-build-command: ". .venv/bin/activate"
           build-command: "sphinx-build -b html . _build"
 
       - name: Upload artifacts
