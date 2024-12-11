@@ -16,6 +16,7 @@ def test_class_creation4():
     with SMBus(1) as bus:
         ADXL345(bus=bus, address=0x53)
 
+
 def test_get_g():
     accel = ADXL345()
     accel.get_g()
@@ -23,6 +24,15 @@ def test_get_g():
 def test_get_g_raw():
     accel = ADXL345()
     accel.get_g_raw()
+
+def test_multiple_objects():
+    a1 = ADXL345(address=0x53)
+    a2 = ADXL345(address=0x53)
+    a3 = ADXL345(address=0x53)
+    for _ in range(5):
+        a1.get_g()
+        a2.get_g()
+        a3.get_g()
 
 def test_set_wrong_address():
     with pytest.raises(ValueError):
