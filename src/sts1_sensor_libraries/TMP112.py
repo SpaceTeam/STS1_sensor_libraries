@@ -1,15 +1,20 @@
 from smbus2 import i2c_msg
 
-class TMP112:
+from sts1_sensor_libraries.AbstractSensor import AbstractSensor
+
+class TMP112(AbstractSensor):
+    """Temperature sensor.
+    """
     possible_addresses = [0x48, 0x49, 0x4A, 0x4B]
     possible_conversion_rates = [0.25, 1, 4, 8]
     
-    def __init__(self, bus, address=0x48, conversion_rate=1, extended_temp_range=True):
+    def __init__(self, bus=None, address=0x48, conversion_rate=1, extended_temp_range=True):
         """_summary_
         :param bool extended_temp_range: If true, range: -55°C - 150°C, if false range: -55°C - 128°C, defaults to True
         """
+        super().__init__(bus)
+
         self.address = address
-        self.bus = bus
         self.conversion_rate = conversion_rate
         self.extended_temp_range = extended_temp_range
         

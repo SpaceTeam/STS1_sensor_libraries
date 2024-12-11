@@ -16,7 +16,6 @@ def test_class_creation4():
     with SMBus(1) as bus:
         ADXL345(bus=bus, address=0x53)
 
-
 def test_get_g():
     accel = ADXL345()
     accel.get_g()

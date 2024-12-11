@@ -2,10 +2,10 @@ from statistics import mean
 import time
 from sts1_sensor_libraries import ADXL345
 
-accel = ADXL345(address=0x53, range=2, datarate=3200)
+accel = ADXL345(address=0x53, range=2, datarate=50)
 
 measurements = []
-for _ in range(500):
+for _ in range(200):
     measurements.append(accel.get_g())
     time.sleep(.1)
 
