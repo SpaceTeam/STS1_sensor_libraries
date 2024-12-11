@@ -1,7 +1,6 @@
 name: Upload Python Package to PyPI when a Release is Created
 
 on:
-  workflow_dispatch:
   release:
     types: [created]
 
@@ -9,9 +8,7 @@ jobs:
   pypi-publish:
     name: Publish release to PyPI
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/sts1_sensor_libraries
+    environment: pypi
     permissions:
       id-token: write
     steps:
@@ -31,6 +28,5 @@ jobs:
       - name: Build
         run: uv build
 
-      - name: Publish
-        run: uv publish --trusted-publishing automatic
-
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
