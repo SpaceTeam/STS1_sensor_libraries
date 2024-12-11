@@ -10,7 +10,7 @@ class ADXL345:
     possible_datarates = [0.10, 0.20, 0.39, 0.78, 1.56, 3.13, 6.25, 12.5, 25, 50, 100, 200, 400, 800, 1600, 3200]
     possible_ranges = [2, 4, 8, 16]
 
-    def __init__(self, bus=None, address=0x53, range=2, datarate=3200, x_offset=0, y_offset=0, z_offset=0):
+    def __init__(self, bus=None, address=0x53, range=2, datarate=50, x_offset=0, y_offset=0, z_offset=0):
         if bus is None:
             self.manage_bus = True
             self.bus = SMBus(int(os.environ.get("STS1_SENSORS_I2C_ADDRESS", 1)))

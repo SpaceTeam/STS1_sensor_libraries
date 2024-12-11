@@ -6,7 +6,7 @@ def test_class_creation1():
     ADXL345(address=0x53)
     
 def test_class_creation2():
-    ADXL345(address=0x53, range=2, datarate=3200)
+    ADXL345(address=0x53, range=2, datarate=50)
 
 def test_class_creation3():
     ADXL345(address=0x53, x_offset=-0.06, y_offset=0.03, z_offset=0.06)
