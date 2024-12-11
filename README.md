@@ -1,4 +1,4 @@
-[Github](https://github.com/SpaceTeam/STS1_sensor_libraries) | [PyPI](https://pypi.org/project/sts1-sensor-libraries/)
+[Docs](https://spaceteam.github.io/STS1_sensor_libraries/) | [Github](https://github.com/SpaceTeam/STS1_sensor_libraries) | [PyPI](https://pypi.org/project/sts1-sensor-libraries/)
 
 # sts1-sensor-libraries
 
@@ -12,8 +12,24 @@ The following sensors are available on the EDU module:
 * [`L3GD20H`](https://www.pololu.com/file/0J731/L3GD20H.pdf) - Three-axis gyroscope.
 * [`TMP112`](https://www.ti.com/product/TMP112) - High-accuracy temperature sensor.
 
+## Quickstart
 
-## Initial Setup on the Raspberry Pi
+```python
+from sts1_sensor_libraries import ADXL345, TMP112
+
+# Accelerometer
+accel = ADXL345(address=0x53, range=2, datarate=50)
+x, y, z = accel.get_g()
+print(f"X: {x:.2f}g, Y: {y:.2f}g, Z: {z:.2f}g")
+
+# Temperature sensor
+temp = TMP112(address=0x48)
+print(f"{temp.get_temp():.2f} °C")
+```
+
+## Installation
+
+### Initial Setup on the Raspberry Pi
 
 * Open a terminal on the Raspberry Pi (e.g. via SSH).
 * [Activate the I2C interface](https://www.raspberrypi-spy.co.uk/2014/11/enabling-the-i2c-interface-on-the-raspberry-pi/): `sudo raspi-config`
@@ -35,19 +51,20 @@ flo@raspberrypi:~ $ sudo i2cdetect -y 1
 70: -- -- -- -- -- -- 76 --
 ```
 
-## Installing the Python Package on the Raspberry Pi
+### Installing the Python Package on the Raspberry Pi
 
 If you want the latest stable version, install it like so:
 ```bash
 pip install sts1-sensor-libraries
 ```
 
-## Installation for Package Developers
+## For Developers
 
-* Install [just](https://github.com/casey/just?tab=readme-ov-file#pre-built-binaries)
+* Install [just](https://github.com/casey/just?tab=readme-ov-file#pre-built-binaries): `curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin`
 * Install the [package manager uv](https://docs.astral.sh/uv/getting-started/installation/): `curl -LsSf https://astral.sh/uv/install.sh | sh`
 * Add its path to your `~/.bashrc` such that the command `uv` is available: `export PATH=$HOME/.local/bin:$PATH`
 * Clone this repo: `git clone https://github.com/SpaceTeam/STS1_sensor_libraries`
 * Switch into the directory.
 * Run `uv sync`. This creates a `.venv` folder and installs all necessary dependencies.
+* Run `pytest`
 * Run one of the examples: `uv run python examples/ADXL345_example.py`
