@@ -23,13 +23,29 @@ jobs:
       - name: Install the project
         run: uv sync --all-extras --dev
 
-      - name: Sphinx build
-        run: sphinx-build docs/source _build
+      - name: Build HTML
+        uses: ammaraskar/sphinx-action@master
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-          publish_branch: gh-pages
+          name: html-docs
+          path: docs/build/html/
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        # if: github.ref == 'refs/heads/main'
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/
-          force_orphan: true
+          publish_dir: docs/build/html
+
+      # - name: Sphinx build
+      #   run: sphinx-build docs/source _build
+
+      # - name: Deploy to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     publish_branch: gh-pages
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: _build/
+      #     force_orphan: true
