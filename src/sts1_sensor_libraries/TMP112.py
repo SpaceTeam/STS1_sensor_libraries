@@ -20,7 +20,7 @@ class TMP112(AbstractSensor):
         """
         super().__init__(bus)
 
-        self.address = address or int(os.environ["STS1_SENSOR_ADDRESS_TMP112"], 0x48)
+        self.address = address or int(os.environ.get("STS1_SENSOR_ADDRESS_TMP112", "0x48"), 16)
         self.conversion_rate = conversion_rate
         self.extended_temp_range = extended_temp_range
         

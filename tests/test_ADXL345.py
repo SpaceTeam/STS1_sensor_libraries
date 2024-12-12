@@ -22,7 +22,7 @@ def test_class_creation5():
     ADXL345(address=0x53)
 
 def test_class_creation6():
-    os.environ["STS1_SENSOR_ADDRESS_AVXL345"] = 0x53
+    os.environ["STS1_SENSOR_ADDRESS_AVXL345"] = "0x53"
     ADXL345()
     del os.environ["STS1_SENSOR_ADDRESS_AVXL345"]
 
@@ -49,7 +49,7 @@ def test_set_wrong_address1():
 
 def test_set_wrong_address2():
     with pytest.raises(ValueError):
-        os.environ["STS1_SENSOR_ADDRESS_AVXL345"] = 0x98
+        os.environ["STS1_SENSOR_ADDRESS_AVXL345"] = "0x98"
         ADXL345()
         del os.environ["STS1_SENSOR_ADDRESS_AVXL345"]
 

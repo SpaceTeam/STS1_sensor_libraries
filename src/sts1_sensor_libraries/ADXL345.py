@@ -24,7 +24,7 @@ class ADXL345(AbstractSensor):
         """
         super().__init__(bus)
             
-        self.address = address or int(os.environ["STS1_SENSOR_ADDRESS_AVXL345"], 0x53)
+        self.address = address or int(os.environ.get("STS1_SENSOR_ADDRESS_AVXL345", "0x53"), 16)
         self.datarate = datarate
         self.range = range
         self.offsets = {"x": x_offset, "y": y_offset, "z": z_offset}

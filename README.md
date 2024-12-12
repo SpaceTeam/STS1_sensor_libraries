@@ -18,12 +18,12 @@ The following sensors are available on the EDU module:
 from sts1_sensor_libraries import ADXL345, TMP112
 
 # Accelerometer
-accel = ADXL345(address=0x53, range=2, datarate=50)
+accel = ADXL345(range=2, datarate=50)
 x, y, z = accel.get_g()
 print(f"X: {x:.2f}g, Y: {y:.2f}g, Z: {z:.2f}g")
 
 # Temperature sensor
-temp = TMP112(address=0x48)
+temp = TMP112()
 print(f"{temp.get_temp():.2f} °C")
 ```
 
