@@ -20,12 +20,28 @@ release = 'v0.3.3'
 
 extensions = [
     'sphinx.ext.githubpages',
-    'myst_parser'
+    'myst_parser',
+    'autoapi.extension',
 ]
 
 templates_path = ['_templates']
 exclude_patterns = []
+autoapi_dirs = ['../../src/sts1_sensor_libraries']
 
+autoapi_options = [
+    "members",
+    "undoc-members",
+    # "private-members",
+    # "show-inheritance",
+    # "show-module-summary",
+    # "special-members",
+    # "imported-members",
+]
+
+autoapi_python_class_content = 'init'
+
+add_module_names = False
+toc_object_entries_show_parents = "hide"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

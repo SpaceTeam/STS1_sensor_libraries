@@ -24,6 +24,15 @@ wheels = [
 ]
 
 [[package]]
+name = "astroid"
+version = "3.3.6"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ca/40/e028137cb19ed577001c76b91c5c50fee5a9c85099f45820b69385574ac5/astroid-3.3.6.tar.gz", hash = "sha256:6aaea045f938c735ead292204afdb977a36e989522b7833ef6fea94de743f442", size = 397452 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0c/d2/82c8ccef22ea873a2b0da9636e47d45137eeeb2fb9320c5dbbdd3627bab0/astroid-3.3.6-py3-none-any.whl", hash = "sha256:db676dc4f3ae6bfe31cda227dc60e03438378d7a896aec57422c95634e8d722f", size = 274644 },
+]
+
+[[package]]
 name = "babel"
 version = "2.16.0"
 source = { registry = "https://pypi.org/simple" }
@@ -386,6 +395,21 @@ wheels = [
 ]
 
 [[package]]
+name = "sphinx-autoapi"
+version = "3.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "astroid" },
+    { name = "jinja2" },
+    { name = "pyyaml" },
+    { name = "sphinx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4a/eb/cc243583bb1d518ca3b10998c203d919a8ed90affd4831f2b61ad09043d2/sphinx_autoapi-3.4.0.tar.gz", hash = "sha256:e6d5371f9411bbb9fca358c00a9e57aef3ac94cbfc5df4bab285946462f69e0c", size = 29292 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/de/d6/f2acdc2567337fd5f5dc091a4e58d8a0fb14927b9779fc1e5ecee96d9824/sphinx_autoapi-3.4.0-py3-none-any.whl", hash = "sha256:4027fef2875a22c5f2a57107c71641d82f6166bf55beb407a47aaf3ef14e7b92", size = 34095 },
+]
+
+[[package]]
 name = "sphinx-autobuild"
 version = "2024.10.3"
 source = { registry = "https://pypi.org/simple" }
@@ -504,6 +528,7 @@ dev = [
     { name = "furo" },
     { name = "myst-parser" },
     { name = "sphinx" },
+    { name = "sphinx-autoapi" },
     { name = "sphinx-autobuild" },
 ]
 
@@ -519,6 +544,7 @@ dev = [
     { name = "furo", specifier = ">=2024.8.6" },
     { name = "myst-parser", specifier = ">=4.0.0" },
     { name = "sphinx", specifier = ">=8.1.3" },
+    { name = "sphinx-autoapi", specifier = ">=3.4.0" },
     { name = "sphinx-autobuild", specifier = ">=2024.10.3" },
 ]
 
