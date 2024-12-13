@@ -1,3 +1,4 @@
-from .ADXL345 import *
-from .L3GD20H import *
-from .TMP112 import *
+from .ADXL345 import ADXL345
+from .BME688 import BME688
+from .L3GD20H import L3GD20H
+from .TMP112 import TMP112
