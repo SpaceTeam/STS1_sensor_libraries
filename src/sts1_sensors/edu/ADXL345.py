@@ -1,6 +1,6 @@
 import os
 
-from sts1_sensors.sensors.AbstractSensor import AbstractSensor
+from sts1_sensors.utils.AbstractSensor import AbstractSensor
 
 class ADXL345(AbstractSensor):
     """Digital accelerometer.

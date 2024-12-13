@@ -1,7 +1,7 @@
 import os
 
-from sts1_sensors.sensors.AbstractSensor import AbstractSensor
-from sts1_sensors.utils import twos_comp
+from sts1_sensors.utils.AbstractSensor import AbstractSensor
+from sts1_sensors.utils.utils import twos_comp
 
 class L3GD20H(AbstractSensor):
     """Three-axis gyroscope
