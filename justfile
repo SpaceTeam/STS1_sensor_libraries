@@ -7,4 +7,4 @@ clean_docs:
 
 test:
     # Works only on Rasperry Pi
-    pytest
+    uv run pytest
