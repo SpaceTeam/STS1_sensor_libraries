@@ -4,19 +4,24 @@ import time
 
 import bmm150
 
-from sts1_sensors.utils.AbstractSensor import AbstractSensor
 from sts1_sensors.utils.PatchedSMBus import PatchedSMBus
 
-
-class BMM150(AbstractSensor):
+class BMM150:
     """Geomagnetic sensor.
 
     Datasheet: https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmm150-ds001.pdf
     """
-    def __init__(self, address=None):
+
+    def __init__(self, address=None, bus=None):
+        self.possible_addresses = [0x10, 0x11, 0x12, 0x13]
         a = address or int(os.environ.get("STS1_SENSOR_ADDRESS_BMM150", "0x10"), 16)
-        bus = PatchedSMBus(int(os.environ.get("STS1_SENSORS_I2C_BUS_ADDRESS", 1)), address=a)
-        super().__init__(possible_addresses=[0x10, 0x11, 0x12, 0x13], bus=bus)
+
+        if bus is None:
+            self.manage_bus = True
+            self.bus = PatchedSMBus(int(os.environ.get("STS1_SENSORS_I2C_BUS_ADDRESS", 1)), address=a)
+        else:
+            self.manage_bus = False
+            self.bus = bus
 
         self.address = a
 
@@ -30,6 +35,18 @@ class BMM150(AbstractSensor):
                 break
             time.sleep(0.5)
 
+    @property
+    def address(self):
+        return self._address
+
+    @address.setter
+    def address(self, address):
+        if address not in self.possible_addresses:
+            s = f"The address {hex(address)} does not exist."
+            s += f" Choose one of {self.possible_addresses}."
+            raise ValueError(s)
+        self._address = address
+        
     def get_raw_magnetic_data(self):
         return self.bmm.read_raw_mag_data()
 
