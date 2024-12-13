@@ -7,9 +7,9 @@ class L3GD20H(AbstractSensor):
     """Three-axis gyroscope"""
 
     _possible_addresses = [0x6A, 0x6B]
+    _possible_ranges = [245, 500, 2000]
     _possible_datarates = [12.5, 25, 50, 100, 200, 400, 800]
     _possible_datarates_bin = [(0, 1), (1, 1), (2, 1), (0, 0), (1, 0), (2, 0), (3, 0)]
-    _possible_ranges = [245, 500, 2000]
     
     def __init__(self, range=245, datarate=12.5, address=None, bus=None):
         super().__init__(bus)
@@ -60,7 +60,7 @@ class L3GD20H(AbstractSensor):
 
     def _get_dps(self, var):
         k = self._get_raw(var)
-        return k * self.dps_per_digit[self.poss_range.index(self.range)]
+        return k * self.dps_per_digit[self._possible_ranges.index(self.range)]
 
     def get_position(self):
         return self._get_dps("x"), self._get_dps("y"), self._get_dps("z")
