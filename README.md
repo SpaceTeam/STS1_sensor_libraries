@@ -2,25 +2,38 @@
 
 # sts1-sensors
 
-Streamline the process of handling sensors on the Raspi-Hat / EDU module.
+Streamline the process of handling sensors for the STS1 project.
 
-The following sensors are available on the EDU module:
+The following sensors are available both on the satellite and **on the EDU module**:
 * [`ADXL345`](https://www.analog.com/en/products/adxl345.html) - Digital accelerometer.
 * [`BME688`](https://www.bosch-sensortec.com/products/environmental-sensors/gas-sensors/bme688/) - Pressure, humidity, temperature and gas sensor.
 * [`BMM150`](https://www.bosch-sensortec.com/products/motion-sensors/magnetometers/bmm150/) - Geomagnetic sensor.
-* [`GUVA_C32`](https://www.digikey.de/de/products/detail/genicom-co-ltd/GUVA-C32SM/9960949) - Ultraviolet light sensor.
 * [`L3GD20H`](https://www.pololu.com/file/0J731/L3GD20H.pdf) - Three-axis gyroscope.
 * [`TMP112`](https://www.ti.com/product/TMP112) - High-accuracy temperature sensor.
+
+The following sensors are available **on the satellite only**:
+* [`GUVA_C32`](https://www.digikey.de/de/products/detail/genicom-co-ltd/GUVA-C32SM/9960949) - Ultraviolet light sensor.
 
 ## Quickstart
 
 ```python
-from sts1_sensors import ADXL345, TMP112
+from sts1_sensors import ADXL345, BMM150, L3GD20H, TMP112
 
 # Accelerometer
-accel = ADXL345(range=2, datarate=50)
+accel = ADXL345()
 x, y, z = accel.get_g()
-print(f"X: {x:.2f}g, Y: {y:.2f}g, Z: {z:.2f}g")
+print(f"{x=:.2f} g, {y=:.2f} g, {z=:.2f} g")
+
+# Geomagnetic sensor
+mag = BMM150()
+x, y, z = mag.get_magnetic_data()
+print(f"{x=:.2f} µT, {y=:.2f} µT, {z=:.2f} µT")
+print(f"Heading: {mag.get_heading():.2f}°")
+
+# Gyroscope
+gyro = L3GD20H()
+x, y, z = gyro.get_position()
+print(f"{x=:.2f} dpfs, {y=:.2f} dpfs, {z=:.2f} dpfs")
 
 # Temperature sensor
 temp = TMP112()
