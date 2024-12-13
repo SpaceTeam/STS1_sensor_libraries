@@ -1,4 +1,4 @@
-import STS1_sensor_libraries as STS1
+import sts1_sensors as STS1
 from smbus2 import SMBus
 import time
 

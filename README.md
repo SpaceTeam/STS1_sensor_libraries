@@ -1,6 +1,6 @@
-[Docs](https://spaceteam.github.io/STS1_sensor_libraries/) | [Github](https://github.com/SpaceTeam/STS1_sensor_libraries) | [PyPI](https://pypi.org/project/sts1-sensor-libraries/)
+[Docs](https://spaceteam.github.io/sts1_sensors/) | [Github](https://github.com/SpaceTeam/STS1_sensor_libraries) | [PyPI](https://pypi.org/project/sts1-sensors/)
 
-# sts1-sensor-libraries
+# sts1-sensors
 
 Streamline the process of handling sensors on the Raspi-Hat / EDU module.
 
@@ -15,15 +15,15 @@ The following sensors are available on the EDU module:
 ## Quickstart
 
 ```python
-from sts1_sensor_libraries import ADXL345, TMP112
+from sts1_sensors import ADXL345, TMP112
 
 # Accelerometer
-accel = ADXL345(address=0x53, range=2, datarate=50)
+accel = ADXL345(range=2, datarate=50)
 x, y, z = accel.get_g()
 print(f"X: {x:.2f}g, Y: {y:.2f}g, Z: {z:.2f}g")
 
 # Temperature sensor
-temp = TMP112(address=0x48)
+temp = TMP112()
 print(f"{temp.get_temp():.2f} °C")
 ```
 
@@ -55,7 +55,7 @@ flo@raspberrypi:~ $ sudo i2cdetect -y 1
 
 If you want the latest stable version, install it like so:
 ```bash
-pip install sts1-sensor-libraries
+pip install sts1-sensors
 ```
 
 ## For Developers
@@ -65,6 +65,5 @@ pip install sts1-sensor-libraries
 * Add its path to your `~/.bashrc` such that the command `uv` is available: `export PATH=$HOME/.local/bin:$PATH`
 * Clone this repo: `git clone https://github.com/SpaceTeam/STS1_sensor_libraries`
 * Switch into the directory.
-* Run `uv sync`. This creates a `.venv` folder and installs all necessary dependencies.
-* Run `pytest`
-* Run one of the examples: `uv run python examples/ADXL345_example.py`
+* Run `uv sync --all-extras --dev`. This creates a `.venv` folder and installs all necessary dependencies.
+* (Only on Raspberry Pi) Run `pytest`
