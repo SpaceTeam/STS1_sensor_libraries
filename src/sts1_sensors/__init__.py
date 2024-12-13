@@ -1,1 +1,1 @@
-from .sensors import *
+from .edu import *

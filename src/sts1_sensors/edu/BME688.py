@@ -2,8 +2,8 @@ from collections import namedtuple
 import os
 import time
 
-from sts1_sensors.sensors.AbstractSensor import AbstractSensor
-from sts1_sensors.utils import twos_comp
+from sts1_sensors.utils.AbstractSensor import AbstractSensor
+from sts1_sensors.utils.utils import twos_comp
 
 BME688Data = namedtuple("BME688Data", "pressure_hPa humidity_percent temperature_C gas_resistance_ohms")
 
@@ -250,9 +250,10 @@ class BME688(AbstractSensor):
         gas_ready = False
         if self.use_gas:
             for _ in range(10):
-                if self.bus.read_byte_data(self.address, 0x1D) != 0b10000000:
-                    time.sleep(0.05)
-                    continue
+                if self.bus.read_byte_data(self.address, 0x1D) == 0b10000000:
+                    break    
+                time.sleep(0.05)
+                    
                 gas_ready = True
 
         # get temperature adc value       

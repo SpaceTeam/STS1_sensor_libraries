@@ -1,7 +1,7 @@
 import os
 from smbus2 import i2c_msg
 
-from sts1_sensors.sensors.AbstractSensor import AbstractSensor
+from sts1_sensors.utils.AbstractSensor import AbstractSensor
 
 class GUVA_C32(AbstractSensor):
     """Ultraviolet light sensor.
