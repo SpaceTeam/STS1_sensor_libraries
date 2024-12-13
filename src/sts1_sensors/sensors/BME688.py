@@ -123,9 +123,15 @@ class BME688(AbstractSensor):
         self._gas_time = gas_time
 
     def _finish_setup(self):
-        self.bus.write_byte_data(self.address, 0x72, (self._possible_humidity_osrs.index(self.humOSR)))
-        self.bus.write_byte_data(self.address, 0x74, (self._possible_temperature_osrs.index(self.tempOSR) << 5) + (self._possible_pressure_osrs.index(self.pressOSR) << 2))
-        self.bus.write_byte_data(self.address, 0x75, (self._possible_iirs.index(self.IIR) << 2))
+        h = self._possible_humidity_osrs.index(self.humidity_osr)
+        self.bus.write_byte_data(self.address, 0x72, h)
+
+        t = self._possible_temperature_osrs.index(self.temperature_osr) << 5
+        p = self._possible_pressure_osrs.index(self.pressure_osr) << 2
+        self.bus.write_byte_data(self.address, 0x74, t + p)
+
+        iir = self._possible_iirs.index(self.iir) << 2
+        self.bus.write_byte_data(self.address, 0x75, iir)
         
         if self.use_gas:
             # enable gas conversion and activate heater step 0
@@ -231,7 +237,10 @@ class BME688(AbstractSensor):
         if self.setupD:
             # initiate force mode -> single measurement
             self.bus.write_byte_data(self.address, 0x70, 0)
-            self.bus.write_byte_data(self.address, 0x74, 1 + (self._possible_temperature_osrs.index(self.tempOSR) << 5) + (self._possible_pressure_osrs.index(self.pressOSR) << 2))
+
+            t = self._possible_temperature_osrs.index(self.temperature_osr) << 5
+            p = self._possible_pressure_osrs.index(self.pressure_osr) << 2
+            self.bus.write_byte_data(self.address, 0x74, 1 + t + p)
             
             # if gas measurement mode is active wait until gas measurement is finished
             gas_ready = False
