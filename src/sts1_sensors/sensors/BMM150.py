@@ -28,7 +28,7 @@ class BMM150(AbstractSensor):
     @datarate.setter
     def datarate(self, datarate):
         if datarate not in self._possible_datarates:
-            s = f"The datarate {hex(datarate)} does not exist."
+            s = f"The datarate {datarate} does not exist."
             s += f" Choose one of {self._possible_datarates}."
             raise ValueError(s)
         self._datarate = datarate
