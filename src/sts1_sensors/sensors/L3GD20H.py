@@ -4,15 +4,15 @@ from sts1_sensors.sensors.AbstractSensor import AbstractSensor
 from sts1_sensors.utils import twos_comp
 
 class L3GD20H(AbstractSensor):
-    """Three-axis gyroscope"""
-
-    _possible_addresses = [0x6A, 0x6B]
+    """Three-axis gyroscope
+    """
     _possible_ranges = [245, 500, 2000]
     _possible_datarates = [12.5, 25, 50, 100, 200, 400, 800]
     _possible_datarates_bin = [(0, 1), (1, 1), (2, 1), (0, 0), (1, 0), (2, 0), (3, 0)]
     
     def __init__(self, range=245, datarate=12.5, address=None, bus=None):
-        super().__init__(bus)
+        super().__init__(possible_addresses=[0x6A, 0x6B], bus=bus)
+
         self.address = address or int(os.environ.get("STS1_SENSOR_ADDRESS_L3GD20H", "0x6A"), 16)
         self.range = range
         self.datarate = datarate
@@ -27,18 +27,6 @@ class L3GD20H(AbstractSensor):
         self.bus.write_byte_data(self.address, 0x23, (self._possible_ranges.index(self.range) << 4))
         self.bus.write_byte_data(self.address, 0x39, b)
 
-    @property
-    def address(self):
-        return self._address
-
-    @address.setter
-    def address(self, address):
-        if address not in self._possible_addresses:
-            s = f"The address {hex(address)} does not exist."
-            s += f" Choose one of {self._possible_addresses}."
-            raise ValueError(s)
-        self._address = address
-    
     @property
     def datarate(self):
         return self._datarate

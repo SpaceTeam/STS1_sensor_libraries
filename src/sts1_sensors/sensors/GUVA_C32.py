@@ -4,14 +4,14 @@ from smbus2 import i2c_msg
 from sts1_sensors.sensors.AbstractSensor import AbstractSensor
 
 class GUVA_C32(AbstractSensor):
-    """Ultraviolet light sensor."""
-
-    _possible_addresses = [0x39]
+    """Ultraviolet light sensor.
+    """
     _possible_resolutions = [800, 400, 200, 100]
     _possible_ranges = [1, 2, 4, 8, 16, 32, 64, 128]
     
     def __init__(self, range=1, resolution=800, address=None, bus=None):
-        super().__init__(bus)
+        super().__init__(possible_addresses=[0x39], bus=bus)
+
         self.address = address or int(os.environ.get("STS1_SENSOR_ADDRESS_GUVA_C32", "0x39"), 16)
         self.range = range
         self.resolution = resolution
@@ -27,19 +27,6 @@ class GUVA_C32(AbstractSensor):
         msg = i2c_msg.write(self.addr, [0x05, 0b00000000])
         #msg = i2c_msg.write(self.addr, [0x05, 0b00000000 + self.poss_range_bin[self.poss_range.index(self.range_)]])
         self.bus.i2c_rdwr(msg)
-
-
-    @property
-    def address(self):
-        return self._address
-
-    @address.setter
-    def address(self, address):
-        if address not in self._possible_addresses:
-            s = f"The address {hex(address)} does not exist."
-            s += f" Choose one of {self._possible_addresses}."
-            raise ValueError(s)
-        self._address = address
 
     @property
     def range(self):

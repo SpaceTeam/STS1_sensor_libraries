@@ -6,11 +6,11 @@ from sts1_sensors.sensors.AbstractSensor import AbstractSensor
 class BMM150(AbstractSensor):
     """Geomagnetic sensor.
     """
-    _possible_addresses = [0x10, 0x11, 0x12, 0x13]
     _possible_datarates = [1, 2, 6, 8, 15, 20, 25, 30]
     
     def __init__(self, datarate=8, address=None, bus=None):
-        super().__init__(bus)
+        super().__init__(possible_addresses=[0x10, 0x11, 0x12, 0x13], bus=bus)
+
         self.address = address or int(os.environ.get("STS1_SENSOR_ADDRESS_BMM150", "0x10"), 16)
         self.datarate = datarate
         self.xyz_addresses = {"x": 0x42, "y": 0x44, "z": 0x46}
@@ -20,18 +20,6 @@ class BMM150(AbstractSensor):
         self.bus.write_byte_data(self.addr, 0x4C, self.poss_datarate.index(self.datarate) << 3)
         self.bus.write_byte_data(self.addr, 0x51, 0b1111)
         self.bus.write_byte_data(self.addr, 0x52, 0b1111)
-
-    @property
-    def address(self):
-        return self._address
-
-    @address.setter
-    def address(self, address):
-        if address not in self._possible_addresses:
-            s = f"The address {hex(address)} does not exist."
-            s += f" Choose one of {self._possible_addresses}."
-            raise ValueError(s)
-        self._address = address
 
     @property
     def datarate(self):
