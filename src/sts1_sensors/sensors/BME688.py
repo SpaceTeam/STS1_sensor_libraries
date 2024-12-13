@@ -233,105 +233,104 @@ class BME688(AbstractSensor):
             
             self.bus.write_byte_data(self.address, 0x5A, int(tempset))
         
-    def getVal(self):
-        if self.setupD:
-            # initiate force mode -> single measurement
-            self.bus.write_byte_data(self.address, 0x70, 0)
+    def get_values(self):
+        # initiate force mode -> single measurement
+        self.bus.write_byte_data(self.address, 0x70, 0)
 
-            t = self._possible_temperature_osrs.index(self.temperature_osr) << 5
-            p = self._possible_pressure_osrs.index(self.pressure_osr) << 2
-            self.bus.write_byte_data(self.address, 0x74, 1 + t + p)
-            
-            # if gas measurement mode is active wait until gas measurement is finished
-            gas_ready = False
-            if self.use_gas:
-                for _ in range(10):
-                    if self.bus.read_byte_data(self.address, 0x1D) != 0b10000000:
-                        time.sleep(0.05)
-                        continue
-                    gas_ready = True
- 
-            # get temperature adc value       
-            temp_adc_MSB = self.bus.read_byte_data(self.address, 0x22)
-            temp_adc_LSB = self.bus.read_byte_data(self.address, 0x23)
-            temp_adc_XSB = self.bus.read_byte_data(self.address, 0x24)
-            temp_adc = ((temp_adc_XSB & 0b11110000) >> 4) + (temp_adc_LSB << 4) + (temp_adc_MSB << 12)
-            
-            # compensate temperature adc value
-            vart1 = ((temp_adc / 16384) - (self.par_t1 / 1024)) * self.par_t2
-            vart2 = (((temp_adc / 131072) - (self.par_t1 / 8192)) * ((temp_adc / 131072) - (self.par_t1 / 8192))) * self.par_t3 * 16
-            t_fine = vart1 + vart2
-            temp_comp = t_fine / 5120
-            
-            self.ambient_temp = temp_comp
-            
-            
-            #get humidity adc value
-            hum_adc_MSB = self.bus.read_byte_data(self.address, 0x25)
-            hum_adc_LSB = self.bus.read_byte_data(self.address, 0x26)            
-            hum_adc = (hum_adc_LSB << 0) + (hum_adc_MSB << 8)
-            
-            #compensate humidity adc value
-            varh1 = hum_adc - ((self.par_h1 * 16) + ((self.par_h3 / 2) * temp_comp))
-            varh2 = varh1 * ((self.par_h2 / 262144) * (1 + ((self.par_h4 / 16384) * temp_comp) + ((self.par_h5 / 1048576) * temp_comp * temp_comp)))
-            varh3 = self.par_h6 / 16384
-            varh4 = self.par_h7 / 2097152
-            hum_comp = varh2 + ((varh3 + (varh4 * temp_comp)) * varh2 * varh2)
-            
-            #get pressure adc value 
-            press_adc_MSB = self.bus.read_byte_data(self.address, 0x1F)
-            press_adc_LSB = self.bus.read_byte_data(self.address, 0x20)
-            press_adc_XSB = self.bus.read_byte_data(self.address, 0x21)
-            press_adc = ((press_adc_XSB & 0b11110000) >> 4) + (press_adc_LSB << 4) + (press_adc_MSB << 12)
-            
-            #compensate pressure adc value
-            varp1 = (t_fine / 2) - 64000
-            varp2 = varp1 * varp1 * (self.par_p6 / 131072)
-            varp2 = varp2 + (varp1 * (self.par_p5 * 2))
-            varp2 = (varp2 / 4) + (self.par_p4 * 65536)
-            varp1 = (((self.par_p3 * varp1 * varp1) / 16384) + (self.par_p2 * varp1)) / 524288
-            varp1 = (1 + (varp1 / 32768)) * self.par_p1
-            press_comp = 1048576 - press_adc
-            press_comp = ((press_comp - (varp2 / 4096)) * 6250) / varp1
-            varp1 = (self.par_p9 * press_comp * press_comp) / 2147483648
-            varp2 = press_comp * (self.par_p8 / 32768)
-            varp3 = (press_comp / 256) * (press_comp / 256) * (press_comp / 256) * (self.par_p10 / 131072)
-            press_comp = press_comp + (varp1 + varp2 + varp3 + (self.par_p7 * 128)) / 16
-            
-            #read gasresistence if enabled
-            gas_res = 0
-            if self.use_gas and gas_ready:
-                gas_adc_MSB = self.bus.read_byte_data(self.address, 0x2C)
-                gas_adc_LSB = self.bus.read_byte_data(self.address, 0x2D)
-                gas_adc = ((gas_adc_LSB & 0b11000000) >> 6) + (gas_adc_MSB << 2)
-                
-                gas_range_XSB = self.bus.read_byte_data(self.address, 0x2D)
-                gas_range = gas_range_XSB & 0b00001111
-                
-                varg1 = 262144 >> gas_range
-                varg2 = gas_adc - 512
-                varg2 *= 3
-                varg2 = 4096 + varg2
-                gas_res = (10000 * varg1) / varg2
-                gas_res *= 100
-            
-            
-            #recalculate and set temperature
-            if self.use_gas:
-                varg1 = (self.par_g1 / 16) + 49
-                varg2 = ((self.par_g2 / 32768) * 0.0005) + 0.00235
-                varg3 = self.par_g3 / 1024
-                varg4 = varg1 * (1 + (varg2 * self.gasTemp))
-                varg5 = varg4 + (varg3 * self.ambient_temp)
-                tempset = (3.4 * ((varg5 * (4 / (4 + self.res_heat_range)) * (1 / (1 + (self.res_heat_val * 0.002)))) - 25))
-                self.bus.write_byte_data(self.address, 0x5A, int(tempset))
+        t = self._possible_temperature_osrs.index(self.temperature_osr) << 5
+        p = self._possible_pressure_osrs.index(self.pressure_osr) << 2
+        self.bus.write_byte_data(self.address, 0x74, 1 + t + p)
+        
+        # if gas measurement mode is active wait until gas measurement is finished
+        gas_ready = False
+        if self.use_gas:
+            for _ in range(10):
+                if self.bus.read_byte_data(self.address, 0x1D) != 0b10000000:
+                    time.sleep(0.05)
+                    continue
+                gas_ready = True
 
-            #turn off heater
-            self.bus.write_byte_data(self.address, 0x70, 0b1000)
+        # get temperature adc value       
+        temp_adc_MSB = self.bus.read_byte_data(self.address, 0x22)
+        temp_adc_LSB = self.bus.read_byte_data(self.address, 0x23)
+        temp_adc_XSB = self.bus.read_byte_data(self.address, 0x24)
+        temp_adc = ((temp_adc_XSB & 0b11110000) >> 4) + (temp_adc_LSB << 4) + (temp_adc_MSB << 12)
+        
+        # compensate temperature adc value
+        vart1 = ((temp_adc / 16384) - (self.par_t1 / 1024)) * self.par_t2
+        vart2 = (((temp_adc / 131072) - (self.par_t1 / 8192)) * ((temp_adc / 131072) - (self.par_t1 / 8192))) * self.par_t3 * 16
+        t_fine = vart1 + vart2
+        temp_comp = t_fine / 5120
+        
+        self.ambient_temp = temp_comp
+        
+        
+        #get humidity adc value
+        hum_adc_MSB = self.bus.read_byte_data(self.address, 0x25)
+        hum_adc_LSB = self.bus.read_byte_data(self.address, 0x26)            
+        hum_adc = (hum_adc_LSB << 0) + (hum_adc_MSB << 8)
+        
+        #compensate humidity adc value
+        varh1 = hum_adc - ((self.par_h1 * 16) + ((self.par_h3 / 2) * temp_comp))
+        varh2 = varh1 * ((self.par_h2 / 262144) * (1 + ((self.par_h4 / 16384) * temp_comp) + ((self.par_h5 / 1048576) * temp_comp * temp_comp)))
+        varh3 = self.par_h6 / 16384
+        varh4 = self.par_h7 / 2097152
+        hum_comp = varh2 + ((varh3 + (varh4 * temp_comp)) * varh2 * varh2)
+        
+        #get pressure adc value 
+        press_adc_MSB = self.bus.read_byte_data(self.address, 0x1F)
+        press_adc_LSB = self.bus.read_byte_data(self.address, 0x20)
+        press_adc_XSB = self.bus.read_byte_data(self.address, 0x21)
+        press_adc = ((press_adc_XSB & 0b11110000) >> 4) + (press_adc_LSB << 4) + (press_adc_MSB << 12)
+        
+        #compensate pressure adc value
+        varp1 = (t_fine / 2) - 64000
+        varp2 = varp1 * varp1 * (self.par_p6 / 131072)
+        varp2 = varp2 + (varp1 * (self.par_p5 * 2))
+        varp2 = (varp2 / 4) + (self.par_p4 * 65536)
+        varp1 = (((self.par_p3 * varp1 * varp1) / 16384) + (self.par_p2 * varp1)) / 524288
+        varp1 = (1 + (varp1 / 32768)) * self.par_p1
+        press_comp = 1048576 - press_adc
+        press_comp = ((press_comp - (varp2 / 4096)) * 6250) / varp1
+        varp1 = (self.par_p9 * press_comp * press_comp) / 2147483648
+        varp2 = press_comp * (self.par_p8 / 32768)
+        varp3 = (press_comp / 256) * (press_comp / 256) * (press_comp / 256) * (self.par_p10 / 131072)
+        press_comp = press_comp + (varp1 + varp2 + varp3 + (self.par_p7 * 128)) / 16
+        
+        #read gasresistence if enabled
+        gas_res = 0
+        if self.use_gas and gas_ready:
+            gas_adc_MSB = self.bus.read_byte_data(self.address, 0x2C)
+            gas_adc_LSB = self.bus.read_byte_data(self.address, 0x2D)
+            gas_adc = ((gas_adc_LSB & 0b11000000) >> 6) + (gas_adc_MSB << 2)
             
-            return {
-                "humidity": hum_comp,
-                "temperature": temp_comp,
-                "pressure": press_comp,
-                "gas_resistance": gas_res,
-            }
+            gas_range_XSB = self.bus.read_byte_data(self.address, 0x2D)
+            gas_range = gas_range_XSB & 0b00001111
+            
+            varg1 = 262144 >> gas_range
+            varg2 = gas_adc - 512
+            varg2 *= 3
+            varg2 = 4096 + varg2
+            gas_res = (10000 * varg1) / varg2
+            gas_res *= 100
+        
+        
+        #recalculate and set temperature
+        if self.use_gas:
+            varg1 = (self.par_g1 / 16) + 49
+            varg2 = ((self.par_g2 / 32768) * 0.0005) + 0.00235
+            varg3 = self.par_g3 / 1024
+            varg4 = varg1 * (1 + (varg2 * self.gasTemp))
+            varg5 = varg4 + (varg3 * self.ambient_temp)
+            tempset = (3.4 * ((varg5 * (4 / (4 + self.res_heat_range)) * (1 / (1 + (self.res_heat_val * 0.002)))) - 25))
+            self.bus.write_byte_data(self.address, 0x5A, int(tempset))
+
+        #turn off heater
+        self.bus.write_byte_data(self.address, 0x70, 0b1000)
+        
+        return {
+            "humidity": hum_comp,
+            "temperature": temp_comp,
+            "pressure": press_comp,
+            "gas_resistance": gas_res,
+        }
