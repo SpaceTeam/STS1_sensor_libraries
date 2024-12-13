@@ -5,7 +5,6 @@ from sts1_sensors.sensors.AbstractSensor import AbstractSensor
 class ADXL345(AbstractSensor):
     """Digital accelerometer.
     """
-    _possible_addresses = [0x1D, 0x3A, 0x3B, 0x53]
     _possible_datarates = [0.10, 0.20, 0.39, 0.78, 1.56, 3.13, 6.25, 12.5, 25, 50, 100, 200, 400, 800, 1600, 3200]
     _possible_ranges = [2, 4, 8, 16]
 
@@ -20,7 +19,7 @@ class ADXL345(AbstractSensor):
         :param hexadecimal address: Physical address of the sensor on the board (see `i2cdetect` command). Allowed values: `[0x1D, 0x3A, 0x3B, 0x53]`. If None, the environment variable `STS1_SENSOR_ADDRESS_AVXL345` will be used. If environment variable is not found, 0x53 will be used.
         :param SMBus bus: A SMBus object. If None, this class will generate its own, defaults to None.
         """
-        super().__init__(bus)
+        super().__init__(possible_addresses=[0x1D, 0x3A, 0x3B, 0x53], bus=bus)
             
         self.address = address or int(os.environ.get("STS1_SENSOR_ADDRESS_AVXL345", "0x53"), 16)
         self.datarate = datarate
@@ -31,18 +30,6 @@ class ADXL345(AbstractSensor):
         self.bus.write_byte_data(self.address, 0x2C, self._possible_datarates.index(self.datarate))
         self.bus.write_byte_data(self.address, 0x2D, 0b1000)
         self.bus.write_byte_data(self.address, 0x31, 0b1011 & self._possible_ranges.index(self.range))
-
-    @property
-    def address(self):
-        return self._address
-
-    @address.setter
-    def address(self, address):
-        if address not in self._possible_addresses:
-            s = f"The address {hex(address)} does not exist."
-            s += f" Choose one of {self._possible_addresses}."
-            raise ValueError(s)
-        self._address = address
 
     @property
     def datarate(self):
