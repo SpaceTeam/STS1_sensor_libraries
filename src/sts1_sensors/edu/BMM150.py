@@ -26,7 +26,7 @@ class BMM150(AbstractSensor):
     
         # Wait up to 10 secs for sensor to be ready
         for _ in range(20):
-            if self.bus.read_byte_data(0x48) & 1 == 1:
+            if self.bus.read_byte_data(0, 0x48) & 1 == 1:
                 break
             time.sleep(0.5)
 
