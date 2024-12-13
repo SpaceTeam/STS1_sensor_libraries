@@ -35,7 +35,7 @@ class GUVA_C32(AbstractSensor):
     @range.setter
     def range(self, range):
         if range not in self._possible_ranges:
-            s = f"The range {hex(range)} does not exist."
+            s = f"The range {range} does not exist."
             s += f" Choose one of {self._possible_ranges}."
             raise ValueError(s)
         self._range = range
@@ -47,7 +47,7 @@ class GUVA_C32(AbstractSensor):
     @resolution.setter
     def resolution(self, resolution):
         if resolution not in self._possible_resolutions:
-            s = f"The resolution {hex(resolution)} does not exist."
+            s = f"The resolution {resolution} does not exist."
             s += f" Choose one of {self._possible_resolutions}."
             raise ValueError(s)
         self._resolution = resolution
