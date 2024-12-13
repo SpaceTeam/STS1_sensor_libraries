@@ -61,6 +61,7 @@ pip install sts1-sensors
 ## For Developers
 
 * Install [just](https://github.com/casey/just?tab=readme-ov-file#pre-built-binaries): `curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin`
+* Add it to `~/.bashrc`: `export PATH="$PATH:$HOME/bin"`
 * Install the [package manager uv](https://docs.astral.sh/uv/getting-started/installation/): `curl -LsSf https://astral.sh/uv/install.sh | sh`
 * Add its path to your `~/.bashrc` such that the command `uv` is available: `export PATH=$HOME/.local/bin:$PATH`
 * Clone this repo: `git clone https://github.com/SpaceTeam/STS1_sensor_libraries`
