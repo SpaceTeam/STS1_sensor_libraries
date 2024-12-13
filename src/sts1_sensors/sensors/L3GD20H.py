@@ -28,6 +28,18 @@ class L3GD20H(AbstractSensor):
         self.bus.write_byte_data(self.address, 0x39, b)
 
     @property
+    def address(self):
+        return self._address
+
+    @address.setter
+    def address(self, address):
+        if address not in self._possible_addresses:
+            s = f"The address {hex(address)} does not exist."
+            s += f" Choose one of {self._possible_addresses}."
+            raise ValueError(s)
+        self._address = address
+    
+    @property
     def datarate(self):
         return self._datarate
 
