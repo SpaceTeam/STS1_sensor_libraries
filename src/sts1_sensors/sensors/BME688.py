@@ -1,10 +1,7 @@
-def twos_comp(val, bits):
-    if val & (1 << (bits - 1)) != 0:
-        val = val - (1 << bits)
-    return val
-
-import time
 import logging
+import time
+
+from sts1_sensors.utils import twos_comp
 
 class bmeData:
     temperature = 0
