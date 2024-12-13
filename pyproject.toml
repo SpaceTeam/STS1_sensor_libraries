@@ -1,6 +1,6 @@
 [project]
 name = "sts1_sensors"
-version = "0.3.4"
+version = "0.3.5"
 description = "A sensor library for the CubeSat STS1 (TU Wien Space Team)."
 readme = "README.md"
 requires-python = ">=3.13"
@@ -27,3 +27,6 @@ dev-dependencies = [
     "sphinx-autobuild>=2024.10.3",
     "sphinx>=8.1.3",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sts1_sensors"]
