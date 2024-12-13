@@ -11,19 +11,12 @@ class BMM150:
 
     Datasheet: https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmm150-ds001.pdf
     """
-
     def __init__(self, address=None, bus=None):
         self.possible_addresses = [0x10, 0x11, 0x12, 0x13]
         a = address or int(os.environ.get("STS1_SENSOR_ADDRESS_BMM150", "0x10"), 16)
 
-        if bus is None:
-            self.manage_bus = True
-            self.bus = PatchedSMBus(int(os.environ.get("STS1_SENSORS_I2C_BUS_ADDRESS", 1)), address=a)
-        else:
-            self.manage_bus = False
-            self.bus = bus
-
         self.address = a
+        self.bus = PatchedSMBus(address=a, bus=bus)
 
         self.bmm = bmm150.BMM150(auto_init=False)
         self.bmm.i2c_bus = self.bus

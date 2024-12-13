@@ -1,10 +1,21 @@
+import os
+
 from smbus2 import SMBus
 
 class PatchedSMBus:
-    def __init__(self, bus_number, address, bus=None):
-        
-        self.bus = SMBus(bus_number)
+    def __init__(self, address, bus=None):
         self.address = address
+        
+        if bus is None:
+            self.manage_bus = True
+            self.bus = SMBus(int(os.environ.get("STS1_SENSORS_I2C_BUS_ADDRESS", 1)))
+        else:
+            self.manage_bus = False
+            self.bus = bus
+
+    def __del__(self):
+        if self.manage_bus:
+            self.bus.close()
 
     def read_byte_data(self, ignored, *args, **kwargs):
         return self.bus.read_byte_data(self.address, *args, **kwargs)
@@ -14,6 +25,3 @@ class PatchedSMBus:
 
     def read_i2c_block_data(self, ignored, *args, **kwargs):
         return self.bus.read_i2c_block_data(self.address, *args, **kwargs)
-
-    def __del__(self):
-        self.bus.close()
