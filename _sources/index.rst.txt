@@ -12,3 +12,9 @@
    
 .. include:: ../../README.md
    :parser: myst_parser.sphinx_
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 0
+   :caption: API Reference

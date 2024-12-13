@@ -1,0 +1,16 @@
+sts1_sensors
+============
+
+.. py:module:: sts1_sensors
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/sts1_sensors/main/index
+   /autoapi/sts1_sensors/sensors/index
+
+

@@ -6,9 +6,10 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="AVDXL345" href="ADXL345.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>sts1-sensor-libraries v0.3.3 documentation</title>
+        <title>sts1-sensors v0.3.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
     
     
@@ -166,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">sts1-sensor-libraries v0.3.3 documentation</div></a>
+      <a href="#"><div class="brand">sts1-sensors v0.3.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +191,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   
-  <span class="sidebar-brand-text">sts1-sensor-libraries v0.3.3 documentation</span>
+  <span class="sidebar-brand-text">sts1-sensors v0.3.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -204,6 +205,26 @@
 <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ADXL345.html">ADXL345</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/sts1_sensors/index.html">sts1_sensors</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of sts1_sensors</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/sts1_sensors/main/index.html">sts1_sensors.main</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/sts1_sensors/sensors/index.html">sts1_sensors.sensors</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of sts1_sensors.sensors</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/sts1_sensors/sensors/ADXL345/index.html">sts1_sensors.sensors.ADXL345</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/sts1_sensors/sensors/BME688/index.html">sts1_sensors.sensors.BME688</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/sts1_sensors/sensors/BMM150/index.html">sts1_sensors.sensors.BMM150</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/sts1_sensors/sensors/GUVA_C32/index.html">sts1_sensors.sensors.GUVA_C32</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/sts1_sensors/sensors/L3GD20H/index.html">sts1_sensors.sensors.L3GD20H</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/sts1_sensors/sensors/TMP112/index.html">sts1_sensors.sensors.TMP112</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/sts1_sensors/sensors/pysatdosclient/index.html">sts1_sensors.sensors.pysatdosclient</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -248,9 +269,9 @@
 </div>
 <div class="toctree-wrapper compound">
 </div>
-<p><a class="reference external" href="https://spaceteam.github.io/STS1_sensor_libraries/">Docs</a> | <a class="reference external" href="https://github.com/SpaceTeam/STS1_sensor_libraries">Github</a> | <a class="reference external" href="https://pypi.org/project/sts1-sensor-libraries/">PyPI</a></p>
-<section id="sts1-sensor-libraries">
-<h1>sts1-sensor-libraries<a class="headerlink" href="#sts1-sensor-libraries" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://spaceteam.github.io/sts1_sensors/">Docs</a> | <a class="reference external" href="https://github.com/SpaceTeam/STS1_sensor_libraries">Github</a> | <a class="reference external" href="https://pypi.org/project/sts1-sensors/">PyPI</a></p>
+<section id="sts1-sensors">
+<h1>sts1-sensors<a class="headerlink" href="#sts1-sensors" title="Link to this heading">¶</a></h1>
 <p>Streamline the process of handling sensors on the Raspi-Hat / EDU module.</p>
 <p>The following sensors are available on the EDU module:</p>
 <ul class="simple">
@@ -263,15 +284,15 @@
 </ul>
 <section id="quickstart">
 <h2>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sts1_sensor_libraries</span> <span class="kn">import</span> <span class="n">ADXL345</span><span class="p">,</span> <span class="n">TMP112</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sts1_sensors</span> <span class="kn">import</span> <span class="n">ADXL345</span><span class="p">,</span> <span class="n">TMP112</span>
 
 <span class="c1"># Accelerometer</span>
-<span class="n">accel</span> <span class="o">=</span> <span class="n">ADXL345</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="mh">0x53</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">datarate</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">accel</span> <span class="o">=</span> <span class="n">ADXL345</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">datarate</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">accel</span><span class="o">.</span><span class="n">get_g</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X: </span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">g, Y: </span><span class="si">{</span><span class="n">y</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">g, Z: </span><span class="si">{</span><span class="n">z</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">g&quot;</span><span class="p">)</span>
 
 <span class="c1"># Temperature sensor</span>
-<span class="n">temp</span> <span class="o">=</span> <span class="n">TMP112</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="mh">0x48</span><span class="p">)</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">TMP112</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">temp</span><span class="o">.</span><span class="n">get_temp</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> °C&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -305,7 +326,7 @@
 <section id="installing-the-python-package-on-the-raspberry-pi">
 <h3>Installing the Python Package on the Raspberry Pi<a class="headerlink" href="#installing-the-python-package-on-the-raspberry-pi" title="Link to this heading">¶</a></h3>
 <p>If you want the latest stable version, install it like so:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>sts1-sensor-libraries
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>sts1-sensors
 </pre></div>
 </div>
 </section>
@@ -318,12 +339,13 @@
 <li><p>Add its path to your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> such that the command <code class="docutils literal notranslate"><span class="pre">uv</span></code> is available: <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PATH=$HOME/.local/bin:$PATH</span></code></p></li>
 <li><p>Clone this repo: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/SpaceTeam/STS1_sensor_libraries</span></code></p></li>
 <li><p>Switch into the directory.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span></code>. This creates a <code class="docutils literal notranslate"><span class="pre">.venv</span></code> folder and installs all necessary dependencies.</p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">pytest</span></code></p></li>
-<li><p>Run one of the examples: <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">python</span> <span class="pre">examples/ADXL345_example.py</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">sync</span> <span class="pre">--all-extras</span> <span class="pre">--dev</span></code>. This creates a <code class="docutils literal notranslate"><span class="pre">.venv</span></code> folder and installs all necessary dependencies.</p></li>
+<li><p>(Only on Raspberry Pi) Run <code class="docutils literal notranslate"><span class="pre">pytest</span></code></p></li>
 </ul>
 </section>
 </section>
+<div class="toctree-wrapper compound">
+</div>
 
         </article>
       </div>
@@ -364,7 +386,7 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=2e15b3d0"></script>
+</div><script src="_static/documentation_options.js?v=41e4a704"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
