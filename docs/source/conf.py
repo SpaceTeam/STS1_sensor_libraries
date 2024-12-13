@@ -27,7 +27,6 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = []
 autoapi_dirs = ['../../src/sts1_sensor_libraries']
-
 autoapi_options = [
     "members",
     "undoc-members",
@@ -39,7 +38,9 @@ autoapi_options = [
 ]
 
 autoapi_python_class_content = 'init'
-
+autoapi_python_use_implicit_namespaces = True
+# autoapi_keep_files = True
+autodoc_typehints = "description"
 add_module_names = False
 toc_object_entries_show_parents = "hide"
 
@@ -48,3 +49,13 @@ toc_object_entries_show_parents = "hide"
 
 html_theme = 'furo'
 html_static_path = ['_static']
+
+def skip_member_variables(app, what, name, obj, skip, options):
+    if what == "attribute":
+       skip = True
+    elif what == "module" and "Abstract" in name:
+       skip = True
+    return skip
+
+def setup(sphinx):
+   sphinx.connect("autoapi-skip-member", skip_member_variables)
