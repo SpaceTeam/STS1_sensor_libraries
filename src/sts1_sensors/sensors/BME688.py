@@ -1,8 +1,11 @@
+from collections import namedtuple
 import os
 import time
 
 from sts1_sensors.sensors.AbstractSensor import AbstractSensor
 from sts1_sensors.utils import twos_comp
+
+BME688Data = namedtuple("BME688Data", "pressure_hPa humidity_percent temperature_C gas_resistance_ohms")
 
 class BME688(AbstractSensor):
     """Pressure, humidity, temperature and gas sensor.
@@ -11,9 +14,11 @@ class BME688(AbstractSensor):
     _possible_temperature_osrs = [1, 2, 4, 8, 16]
     _possible_humidity_osrs = [1, 2, 4, 8, 16]
     _possible_pressure_osrs = [1, 2, 4, 8, 16]
+    
+    # filter coefficients iir filter. applies to temperature and pressure data only.
     _possible_iirs = [0, 1, 3, 7, 15, 31, 63, 127]
     
-    def __init__(self, temperature_osr=1, humidity_osr=1, pressure_osr=1, iir=0, 
+    def __init__(self, temperature_osr=1, humidity_osr=1, pressure_osr=1, iir=1, 
                  use_gas=True, gas_temperature=200, gas_time=1000,
                  address=None, bus=None):
         super().__init__(possible_addresses=[0x76, 0x77], bus=bus)
@@ -227,7 +232,7 @@ class BME688(AbstractSensor):
             varg1 = (self.par_g1 / 16) + 49
             varg2 = ((self.par_g2 / 32768) * 0.0005) + 0.00235
             varg3 = self.par_g3 / 1024
-            varg4 = varg1 * (1 + (varg2 * self.gasTemp))
+            varg4 = varg1 * (1 + (varg2 * self.gas_temperature))
             varg5 = varg4 + (varg3 * self.ambient_temp)
             tempset = (3.4 * ((varg5 * (4 / (4 + self.res_heat_range)) * (1 / (1 + (self.res_heat_val * 0.002)))) - 25))
             
@@ -320,7 +325,7 @@ class BME688(AbstractSensor):
             varg1 = (self.par_g1 / 16) + 49
             varg2 = ((self.par_g2 / 32768) * 0.0005) + 0.00235
             varg3 = self.par_g3 / 1024
-            varg4 = varg1 * (1 + (varg2 * self.gasTemp))
+            varg4 = varg1 * (1 + (varg2 * self.gas_temperature))
             varg5 = varg4 + (varg3 * self.ambient_temp)
             tempset = (3.4 * ((varg5 * (4 / (4 + self.res_heat_range)) * (1 / (1 + (self.res_heat_val * 0.002)))) - 25))
             self.bus.write_byte_data(self.address, 0x5A, int(tempset))
@@ -328,9 +333,4 @@ class BME688(AbstractSensor):
         #turn off heater
         self.bus.write_byte_data(self.address, 0x70, 0b1000)
         
-        return {
-            "humidity": hum_comp,
-            "temperature": temp_comp,
-            "pressure": press_comp,
-            "gas_resistance": gas_res,
-        }
+        return BME688Data(press_comp, hum_comp, temp_comp, gas_res)
