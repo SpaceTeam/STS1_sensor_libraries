@@ -2,7 +2,7 @@ import os
 
 from smbus2 import i2c_msg
 
-from sts1_sensor_libraries.sensors.AbstractSensor import AbstractSensor
+from sts1_sensors.sensors.AbstractSensor import AbstractSensor
 
 class TMP112(AbstractSensor):
     """High-accuracy temperature sensor.

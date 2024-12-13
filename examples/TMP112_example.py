@@ -1,6 +1,6 @@
 import time
 import structlog
-from sts1_sensor_libraries import TMP112
+from sts1_sensors import TMP112
 
 log = structlog.get_logger()
 tmp = TMP112(conversion_rate=1)

@@ -1,11 +1,10 @@
 [project]
-name = "sts1_sensor_libraries"
-version = "0.3.3"
+name = "sts1_sensors"
+version = "0.3.4"
 description = "A sensor library for the CubeSat STS1 (TU Wien Space Team)."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "pytest>=8.3.4",
     "smbus2>=0.5.0",
     "structlog>=24.4.0",
 ]
@@ -23,6 +22,7 @@ build-backend = "hatchling.build"
 dev-dependencies = [
     "furo>=2024.8.6",
     "myst-parser>=4.0.0",
+    "pytest>=8.3.4",
     "sphinx-autoapi>=3.4.0",
     "sphinx-autobuild>=2024.10.3",
     "sphinx>=8.1.3",

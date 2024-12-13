@@ -26,7 +26,7 @@ extensions = [
 
 templates_path = ['_templates']
 exclude_patterns = []
-autoapi_dirs = ['../../src/sts1_sensor_libraries']
+autoapi_dirs = ['../../src/sts1_sensors']
 autoapi_options = [
     "members",
     "undoc-members",

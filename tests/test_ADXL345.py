@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from sts1_sensor_libraries import ADXL345
+from sts1_sensors import ADXL345
 
 def test_class_creation1():
     ADXL345()

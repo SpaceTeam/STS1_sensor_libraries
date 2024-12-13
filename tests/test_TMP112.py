@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from sts1_sensor_libraries import TMP112
+from sts1_sensors import TMP112
 
 def test_class_creation1():
     TMP112()

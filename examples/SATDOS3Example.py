@@ -1,5 +1,5 @@
 import sys
-from sts1_sensor_libraries.pysatdosclient import SatDosClient, StatusCode, SensorType
+from sts1_sensors.pysatdosclient import SatDosClient, StatusCode, SensorType
 
 '''
 Description of data types

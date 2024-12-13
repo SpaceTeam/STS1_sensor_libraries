@@ -1,6 +1,6 @@
 from statistics import mean
 import time
-from sts1_sensor_libraries import ADXL345
+from sts1_sensors import ADXL345
 
 accel = ADXL345(address=0x53, range=2, datarate=50)
 

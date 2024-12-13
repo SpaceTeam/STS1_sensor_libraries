@@ -1,6 +1,6 @@
-[Docs](https://spaceteam.github.io/STS1_sensor_libraries/) | [Github](https://github.com/SpaceTeam/STS1_sensor_libraries) | [PyPI](https://pypi.org/project/sts1-sensor-libraries/)
+[Docs](https://spaceteam.github.io/sts1_sensors/) | [Github](https://github.com/SpaceTeam/STS1_sensor_libraries) | [PyPI](https://pypi.org/project/sts1-sensors/)
 
-# sts1-sensor-libraries
+# sts1-sensors
 
 Streamline the process of handling sensors on the Raspi-Hat / EDU module.
 
@@ -15,7 +15,7 @@ The following sensors are available on the EDU module:
 ## Quickstart
 
 ```python
-from sts1_sensor_libraries import ADXL345, TMP112
+from sts1_sensors import ADXL345, TMP112
 
 # Accelerometer
 accel = ADXL345(range=2, datarate=50)
@@ -55,7 +55,7 @@ flo@raspberrypi:~ $ sudo i2cdetect -y 1
 
 If you want the latest stable version, install it like so:
 ```bash
-pip install sts1-sensor-libraries
+pip install sts1-sensors
 ```
 
 ## For Developers
