@@ -39,6 +39,7 @@ print(f"{x=:.2f} dpfs, {y=:.2f} dpfs, {z=:.2f} dpfs")
 temp = TMP112()
 print(f"{temp.get_temp():.2f} °C")
 ```
+More examples, see examples folder.
 
 ## Installation
 
