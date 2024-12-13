@@ -13,3 +13,6 @@ class PatchedSMBus:
 
     def read_i2c_block_data(self, ignored, *args, **kwargs):
         return self.bus.read_i2c_block_data(self.address, *args, **kwargs)
+
+    def __del__(self):
+        self.bus.close()
