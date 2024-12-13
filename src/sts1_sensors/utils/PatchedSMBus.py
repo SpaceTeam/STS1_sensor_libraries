@@ -1,7 +1,8 @@
 from smbus2 import SMBus
 
 class PatchedSMBus:
-    def __init__(self, bus_number, address):
+    def __init__(self, bus_number, address, bus=None):
+        
         self.bus = SMBus(bus_number)
         self.address = address
 
