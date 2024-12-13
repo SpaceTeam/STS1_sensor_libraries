@@ -65,6 +65,5 @@ pip install sts1-sensors
 * Add its path to your `~/.bashrc` such that the command `uv` is available: `export PATH=$HOME/.local/bin:$PATH`
 * Clone this repo: `git clone https://github.com/SpaceTeam/STS1_sensor_libraries`
 * Switch into the directory.
-* Run `uv sync`. This creates a `.venv` folder and installs all necessary dependencies.
-* Run `pytest`
-* Run one of the examples: `uv run python examples/ADXL345_example.py`
+* Run `uv sync --all-extras --dev`. This creates a `.venv` folder and installs all necessary dependencies.
+* (Only on Raspberry Pi) Run `pytest`
