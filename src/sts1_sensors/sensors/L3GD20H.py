@@ -34,7 +34,7 @@ class L3GD20H(AbstractSensor):
     @datarate.setter
     def datarate(self, datarate):
         if datarate not in self._possible_datarates:
-            s = f"The datarate {hex(datarate)} does not exist."
+            s = f"The datarate {datarate} does not exist."
             s += f" Choose one of {self._possible_datarates}."
             raise ValueError(s)
         self._datarate = datarate
@@ -46,7 +46,7 @@ class L3GD20H(AbstractSensor):
     @range.setter
     def range(self, range):
         if range not in self._possible_ranges:
-            s = f"The range {hex(range)} does not exist."
+            s = f"The range {range} does not exist."
             s += f" Choose one of {self._possible_ranges}."
             raise ValueError(s)
         self._range = range
