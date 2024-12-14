@@ -1,0 +1,31 @@
+sts1_sensors.edu.L3GD20H
+========================
+
+.. py:module:: sts1_sensors.edu.L3GD20H
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: L3GD20H(range=245, datarate=12.5, address=None, bus=None)
+
+
+
+   Three-axis gyroscope
+       
+
+
+   .. py:property:: range
+
+
+   .. py:property:: datarate
+
+
+   .. py:method:: get_position_raw()
+
+
+   .. py:method:: get_position()
+
+

@@ -1,0 +1,30 @@
+sts1_sensors.edu.BMM150
+=======================
+
+.. py:module:: sts1_sensors.edu.BMM150
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: BMM150(address=None, bus=None)
+
+   Geomagnetic sensor.
+
+   Datasheet: https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmm150-ds001.pdf
+
+
+   .. py:property:: address
+
+
+   .. py:method:: get_raw_magnetic_data()
+
+
+   .. py:method:: get_magnetic_data()
+
+
+   .. py:method:: get_heading()
+
+

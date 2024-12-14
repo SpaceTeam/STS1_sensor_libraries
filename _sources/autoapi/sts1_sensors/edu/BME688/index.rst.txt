@@ -1,0 +1,61 @@
+sts1_sensors.edu.BME688
+=======================
+
+.. py:module:: sts1_sensors.edu.BME688
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: BME688(temperature_osr=8, humidity_osr=2, pressure_osr=4, iir_filter_size=3, temperature_offset=0, enable_gas_measurements=False, gas_heater_temperature=320, gas_heater_duration=150, address=None, bus=None)
+
+
+
+   Pressure, humidity, temperature and gas sensor.
+       
+
+
+   .. py:property:: temperature_osr
+
+
+   .. py:property:: humidity_osr
+
+
+   .. py:property:: pressure_osr
+
+
+   .. py:property:: temperature_offset
+
+
+   .. py:property:: iir_filter_size
+
+
+   .. py:property:: enable_gas_measurements
+
+
+   .. py:property:: gas_heater_temperature
+
+
+   .. py:property:: gas_heater_duration
+
+
+   .. py:method:: get_all_data()
+
+
+   .. py:method:: get_heat_stable()
+
+
+   .. py:method:: get_temperature()
+
+
+   .. py:method:: get_pressure()
+
+
+   .. py:method:: get_humidity()
+
+
+   .. py:method:: get_gas_resistance()
+
+

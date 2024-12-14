@@ -1,0 +1,32 @@
+sts1_sensors.edu.TMP112
+=======================
+
+.. py:module:: sts1_sensors.edu.TMP112
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: TMP112(conversion_rate=1, extended_temp_range=True, address=None, bus=None)
+
+
+
+   High-accuracy temperature sensor.
+
+   :param int conversion_rate: Conversion rate. Allowed values: `[0.25, 1, 4, 8]`. Defaults to 1. 
+   :param bool extended_temp_range: If True, range: -55°C - 150°C, if False range: -55°C - 128°C, defaults to True.
+   :param hexadecimal address: Physical address of the sensor on the board (see `i2cdetect` command). Allowed values: `[0x48, 0x49, 0x4A, 0x4B]`. If None, the environment variable `STS1_SENSOR_ADDRESS_TMP112` will be used. If environment variable is not found, 0x48 will be used.
+   :param SMBus bus: A SMBus object. If None, this class will generate its own, defaults to None.
+
+
+   .. py:property:: conversion_rate
+
+
+   .. py:method:: get_temp()
+
+      Get temperature in Celcius.
+
+
+

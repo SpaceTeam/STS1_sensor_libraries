@@ -1,0 +1,46 @@
+sts1_sensors.edu.ADXL345
+========================
+
+.. py:module:: sts1_sensors.edu.ADXL345
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: ADXL345(range=2, datarate=50, x_offset=0, y_offset=0, z_offset=0, address=None, bus=None)
+
+
+
+   Digital accelerometer.
+
+   :param int range: How many gs the sensor should be able measure. Allowed values: `[2, 4, 8, 16]`. Defaults to 2.
+   :param int datarate: How often the sensor should measure in Hz. Allowed values: `[0.10, 0.20, 0.39, 0.78, 1.56, 3.13, 6.25, 12.5, 25, 50, 100, 200, 400, 800, 1600, 3200]`. Defaults to 50.
+   :param int x_offset: x-axis offset, defaults to 0.
+   :param int y_offset: y-axis offset, defaults to 0.
+   :param int z_offset: z-axis offset, defaults to 0.
+   :param hexadecimal address: Physical address of the sensor on the board (see `i2cdetect` command). Allowed values: `[0x1D, 0x3A, 0x3B, 0x53]`. If None, the environment variable `STS1_SENSOR_ADDRESS_AVXL345` will be used. If environment variable is not found, 0x53 will be used.
+   :param SMBus bus: A SMBus object. If None, this class will generate its own, defaults to None.
+
+
+   .. py:property:: datarate
+
+
+   .. py:property:: range
+
+
+   .. py:method:: get_g_raw()
+
+      Get raw acceleration.
+              
+
+
+
+   .. py:method:: get_g()
+
+      Get acceleration adjusted by previously defined offsets.
+              
+
+
+

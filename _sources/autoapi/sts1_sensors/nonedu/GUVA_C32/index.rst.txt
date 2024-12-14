@@ -1,0 +1,31 @@
+sts1_sensors.nonedu.GUVA_C32
+============================
+
+.. py:module:: sts1_sensors.nonedu.GUVA_C32
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: GUVA_C32(range=1, resolution=800, address=None, bus=None)
+
+
+
+   Ultraviolet light sensor.
+       
+
+
+   .. py:property:: range
+
+
+   .. py:property:: resolution
+
+
+   .. py:method:: getRawUVA()
+
+
+   .. py:method:: getUVA()
+
+

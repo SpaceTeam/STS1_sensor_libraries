@@ -1,0 +1,19 @@
+sts1_sensors.edu
+================
+
+.. py:module:: sts1_sensors.edu
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/sts1_sensors/edu/ADXL345/index
+   /autoapi/sts1_sensors/edu/BME688/index
+   /autoapi/sts1_sensors/edu/BMM150/index
+   /autoapi/sts1_sensors/edu/L3GD20H/index
+   /autoapi/sts1_sensors/edu/TMP112/index
+
+

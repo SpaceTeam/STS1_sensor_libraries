@@ -1,0 +1,16 @@
+sts1_sensors.utils
+==================
+
+.. py:module:: sts1_sensors.utils
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/sts1_sensors/utils/PatchedSMBus/index
+   /autoapi/sts1_sensors/utils/utils/index
+
+

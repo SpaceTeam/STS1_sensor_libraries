@@ -10,7 +10,8 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
-   /autoapi/sts1_sensors/main/index
-   /autoapi/sts1_sensors/sensors/index
+   /autoapi/sts1_sensors/edu/index
+   /autoapi/sts1_sensors/nonedu/index
+   /autoapi/sts1_sensors/utils/index
 
 

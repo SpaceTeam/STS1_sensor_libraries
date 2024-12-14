@@ -1,0 +1,13 @@
+sts1_sensors.utils.utils
+========================
+
+.. py:module:: sts1_sensors.utils.utils
+
+
+
+
+Module Contents
+---------------
+
+.. py:function:: twos_comp(val, bits)
+
