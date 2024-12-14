@@ -18,6 +18,14 @@ class ADXL345(AbstractSensor):
         :param int z_offset: z-axis offset, defaults to 0.
         :param hexadecimal address: Physical address of the sensor on the board (see `i2cdetect` command). Allowed values: `[0x1D, 0x3A, 0x3B, 0x53]`. If None, the environment variable `STS1_SENSOR_ADDRESS_AVXL345` will be used. If environment variable is not found, 0x53 will be used.
         :param SMBus bus: A SMBus object. If None, this class will generate its own, defaults to None.
+        
+        Example:
+
+        .. code-block:: python
+           
+        accel = ADXL345(range=2, datarate=50)
+        x, y, z = accel.get_g()
+        print(f"{x=:.2f} g, {y=:.2f} g, {z=:.2f} g")
         """
         super().__init__(possible_addresses=[0x1D, 0x3A, 0x3B, 0x53], bus=bus)
             
