@@ -1,27 +1,23 @@
-import bme680
 import time
 
-sensor = bme680.BME680()
+import structlog
 
-sensor.set_humidity_oversample(bme680.OS_2X)
-sensor.set_pressure_oversample(bme680.OS_4X)
-sensor.set_temperature_oversample(bme680.OS_8X)
-sensor.set_filter(bme680.FILTER_SIZE_3)
+from sts1_sensors import BME688
 
-sensor.set_gas_status(bme680.ENABLE_GAS_MEAS)
-sensor.set_gas_heater_temperature(320)
-sensor.set_gas_heater_duration(150)
-sensor.select_gas_heater_profile(0)
+sensor = BME688()
+log = structlog.get_logger()
 
-while True:
-    if sensor.get_sensor_data():
-        output = "{0:.2f} C,{1:.2f} hPa,{2:.2f} %RH".format(sensor.data.temperature, sensor.data.pressure, sensor.data.humidity)
+sensor.enable_gas_measurements = True
+sensor.gas_heater_temperature = 320
+sensor.gas_heater_duration = 150
 
-        if sensor.data.heat_stable:
-            print("{0},{1} Ohms".format(output, sensor.data.gas_resistance))
+for i in range(10):
+    t = sensor.get_temperature()
+    p = sensor.get_pressure()
+    h = sensor.get_humidity()
 
-        else:
-            print(output)
+    heat = sensor.get_heat_stable()
+    res = sensor.get_gas_resistance()
 
+    log.info(f"{t:.2f} °C, {p:.2f} hPa, {h:.2f} %RH, {heat=}, {res:.2f} Ohms")
     time.sleep(1)
-    

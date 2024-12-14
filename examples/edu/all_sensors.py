@@ -1,7 +1,7 @@
 import time
 
 import structlog
-from sts1_sensors import ADXL345, BMM150, L3GD20H, TMP112
+from sts1_sensors import ADXL345, BME688, BMM150, L3GD20H, TMP112
 
 log = structlog.get_logger()
 
@@ -9,6 +9,7 @@ accel = ADXL345() # Accelerometer
 mag = BMM150() # Geomagnetic sensor
 gyro = L3GD20H() # Gyroscope
 temp = TMP112() # Temperature sensor
+multi = BME688(enable_gas_measurements=True) # Pressure, humidity, temperature and gas sensor
 
 for _ in range(10):
     gx, gy, gz = accel.get_g()
@@ -21,8 +22,15 @@ for _ in range(10):
     px, py, pz = gyro.get_position()
     s += f", {px=:.2f} dpfs, {py=:.2f} dpfs, {pz=:.2f} dpfs"
 
-    t = temp.get_temp() 
-    s += f", {t:.2f} °C"
+    t1 = temp.get_temp() 
+    s += f", temp1 {t1:.2f} °C"
 
+    t2 = multi.get_temperature()
+    p = multi.get_pressure()
+    h = multi.get_humidity()
+    heat = multi.get_heat_stable()
+    res = multi.get_gas_resistance()
+    s += f", temp2 {t2:.2f} °C, {p:.2f} hPa, {h:.2f} %RH, {heat=}, {res:.2f} Ohms"
+    
     log.info(s)
     time.sleep(2)

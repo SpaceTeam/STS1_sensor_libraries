@@ -1,5 +1,7 @@
 import time
+
 import structlog
+
 from sts1_sensors import ADXL345
 
 log = structlog.get_logger()
