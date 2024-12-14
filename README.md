@@ -17,12 +17,21 @@ The following sensors are available **on the satellite only**:
 ## Quickstart
 
 ```python
-from sts1_sensors import ADXL345, BMM150, L3GD20H, TMP112
+from sts1_sensors import ADXL345, BME688, BMM150, L3GD20H, TMP112
 
 # Accelerometer
 accel = ADXL345()
 x, y, z = accel.get_g()
 print(f"{x=:.2f} g, {y=:.2f} g, {z=:.2f} g")
+
+# Temperature, pressure, humidity and gas sensor
+multi = BME688(enable_gas_measurements=True)
+t = multi.get_temperature()
+p = multi.get_pressure()
+h = multi.get_humidity()
+heat = multi.get_heat_stable()
+res = multi.get_gas_resistance()
+print(f"{t:.2f} °C, {p:.2f} hPa, {h:.2f} %RH, {heat=}, {res:.2f} Ohms")
 
 # Geomagnetic sensor
 mag = BMM150()
