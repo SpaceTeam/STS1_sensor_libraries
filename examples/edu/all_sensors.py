@@ -19,8 +19,8 @@ for _ in range(10):
     s += f", {mx=:.2f} µT, {my=:.2f} µT, {mz=:.2f} µT"
     s += f", Heading: {mag.get_heading():.2f}°"
 
-    px, py, pz = gyro.get_position()
-    s += f", {px=:.2f} dpfs, {py=:.2f} dpfs, {pz=:.2f} dpfs"
+    px, py, pz = gyro.get_dps()
+    s += f", {px=:.2f} dps, {py=:.2f} dps, {pz=:.2f} dps"
 
     t1 = temp.get_temp() 
     s += f", temp1 {t1:.2f} °C"

@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath('../../src'))
 project = 'sts1-sensors'
 copyright = '2024, Simon Köfinger, Florian Rohrer'
 author = 'Simon Köfinger, Florian Rohrer'
-release = 'v0.4.0'
+release = 'v0.4.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -53,7 +53,7 @@ html_static_path = ['_static']
 def skip_member_variables(app, what, name, obj, skip, options):
     if what == "attribute":
        skip = True
-    elif what == "module" and "Abstract" in name:
+    elif what == "module" and "Abstract" in name or "PatchedSMBus" in name:
        skip = True
     return skip
 
