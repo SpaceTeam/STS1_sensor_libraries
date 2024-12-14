@@ -19,6 +19,13 @@ Module Contents
    :param bool extended_temp_range: If True, range: -55°C - 150°C, if False range: -55°C - 128°C, defaults to True.
    :param hexadecimal address: Physical address of the sensor on the board (see `i2cdetect` command). Allowed values: `[0x48, 0x49, 0x4A, 0x4B]`. If None, the environment variable `STS1_SENSOR_ADDRESS_TMP112` will be used. If environment variable is not found, 0x48 will be used.
    :param SMBus bus: A SMBus object. If None, this class will generate its own, defaults to None.
+           
+   Example:
+
+   .. code-block:: python
+
+      temp = TMP112(conversion_rate=1, extended_temp_range=True)
+      print(f"{temp.get_temp():.2f} °C")
 
 
    .. py:property:: conversion_rate

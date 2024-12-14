@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="prev" title="sts1_sensors.utils.PatchedSMBus" href="../PatchedSMBus/index.html" />
+<link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="prev" title="sts1_sensors.utils" href="../index.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>sts1_sensors.utils.utils - sts1-sensors v0.4.0 documentation</title>
+        <title>sts1_sensors.utils.utils - sts1-sensors v0.4.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">sts1-sensors v0.4.0 documentation</div></a>
+      <a href="../../../../index.html"><div class="brand">sts1-sensors v0.4.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -191,7 +191,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
   
   
-  <span class="sidebar-brand-text">sts1-sensors v0.4.0 documentation</span>
+  <span class="sidebar-brand-text">sts1-sensors v0.4.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,10 +201,6 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Main</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../ADXL345.html">ADXL345</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
@@ -224,7 +220,6 @@
 </ul>
 </li>
 <li class="toctree-l3 current has-children"><a class="reference internal" href="../index.html">sts1_sensors.utils</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of sts1_sensors.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../PatchedSMBus/index.html">sts1_sensors.utils.PatchedSMBus</a></li>
 <li class="toctree-l4 current current-page"><a class="current reference internal" href="#">sts1_sensors.utils.utils</a></li>
 </ul>
 </li>
@@ -279,7 +274,19 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="sts1_sensors.utils.utils.twos_comp">
 <span class="sig-name descname"><span class="pre">twos_comp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sts1_sensors.utils.utils.twos_comp" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Convert a value into its 2-complement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>val</strong> (<em>int</em>) – Value.</p></li>
+<li><p><strong>bits</strong> (<em>int</em>) – Number of available bits.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return int<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number’s 2-complement.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 </section>
@@ -290,14 +297,14 @@
         
         <div class="related-pages">
           
-          <a class="prev-page" href="../PatchedSMBus/index.html">
+          <a class="prev-page" href="../index.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">sts1_sensors.utils.PatchedSMBus</div>
+                <div class="title">sts1_sensors.utils</div>
                 
               </div>
             </a>
@@ -347,7 +354,7 @@
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=97b6c874"></script>
+</div><script src="../../../../_static/documentation_options.js?v=33ce4c6d"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>

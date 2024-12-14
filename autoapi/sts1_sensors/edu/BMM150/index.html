@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="sts1_sensors.edu.L3GD20H" href="../L3GD20H/index.html" /><link rel="prev" title="sts1_sensors.edu.BME688" href="../BME688/index.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>sts1_sensors.edu.BMM150 - sts1-sensors v0.4.0 documentation</title>
+        <title>sts1_sensors.edu.BMM150 - sts1-sensors v0.4.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">sts1-sensors v0.4.0 documentation</div></a>
+      <a href="../../../../index.html"><div class="brand">sts1-sensors v0.4.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -191,7 +191,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
   
   
-  <span class="sidebar-brand-text">sts1-sensors v0.4.0 documentation</span>
+  <span class="sidebar-brand-text">sts1-sensors v0.4.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,10 +201,6 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Main</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../ADXL345.html">ADXL345</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
@@ -224,7 +220,6 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../utils/index.html">sts1_sensors.utils</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of sts1_sensors.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/PatchedSMBus/index.html">sts1_sensors.utils.PatchedSMBus</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../utils/utils/index.html">sts1_sensors.utils.utils</a></li>
 </ul>
 </li>
@@ -280,7 +275,22 @@
 <dt class="sig sig-object py" id="sts1_sensors.edu.BMM150.BMM150">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BMM150</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sts1_sensors.edu.BMM150.BMM150" title="Link to this definition">¶</a></dt>
 <dd><p>Geomagnetic sensor.</p>
-<p>Datasheet: <a class="reference external" href="https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmm150-ds001.pdf">https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmm150-ds001.pdf</a></p>
+<p>Builds on top of the library <a class="reference external" href="https://gitlab.com/umoreau/bmm150">bmm150</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> (<em>hexadecimal</em>) – Physical address of the sensor on the board (see <cite>i2cdetect</cite> command). Allowed values: <cite>[0x10, 0x11, 0x12, 0x13]</cite>. If None, the environment variable <cite>STS1_SENSOR_ADDRESS_BMM150</cite> will be used. If environment variable is not found, 0x10 will be used.</p></li>
+<li><p><strong>bus</strong> (<em>SMBus</em>) – A SMBus object. If None, this class will generate its own, defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mag</span> <span class="o">=</span> <span class="n">BMM150</span><span class="p">()</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">mag</span><span class="o">.</span><span class="n">get_magnetic_data</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">=:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> µT, </span><span class="si">{</span><span class="n">y</span><span class="si">=:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> µT, </span><span class="si">{</span><span class="n">z</span><span class="si">=:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> µT&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Heading: </span><span class="si">{</span><span class="n">mag</span><span class="o">.</span><span class="n">get_heading</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">°&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py property">
 <dt class="sig sig-object py" id="sts1_sensors.edu.BMM150.BMM150.address">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">address</span></span><a class="headerlink" href="#sts1_sensors.edu.BMM150.BMM150.address" title="Link to this definition">¶</a></dt>
@@ -289,17 +299,20 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sts1_sensors.edu.BMM150.BMM150.get_raw_magnetic_data">
 <span class="sig-name descname"><span class="pre">get_raw_magnetic_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sts1_sensors.edu.BMM150.BMM150.get_raw_magnetic_data" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get raw magnetic data in µT.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sts1_sensors.edu.BMM150.BMM150.get_magnetic_data">
 <span class="sig-name descname"><span class="pre">get_magnetic_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sts1_sensors.edu.BMM150.BMM150.get_magnetic_data" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get magnetic data in µT.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sts1_sensors.edu.BMM150.BMM150.get_heading">
 <span class="sig-name descname"><span class="pre">get_heading</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sts1_sensors.edu.BMM150.BMM150.get_heading" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get heading direction in degrees. Uses only x and y for calculation (z is ignored).</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -383,7 +396,7 @@
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=97b6c874"></script>
+</div><script src="../../../../_static/documentation_options.js?v=33ce4c6d"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>

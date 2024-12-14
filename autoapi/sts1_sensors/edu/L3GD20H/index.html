@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="sts1_sensors.edu.TMP112" href="../TMP112/index.html" /><link rel="prev" title="sts1_sensors.edu.BMM150" href="../BMM150/index.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>sts1_sensors.edu.L3GD20H - sts1-sensors v0.4.0 documentation</title>
+        <title>sts1_sensors.edu.L3GD20H - sts1-sensors v0.4.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../../index.html"><div class="brand">sts1-sensors v0.4.0 documentation</div></a>
+      <a href="../../../../index.html"><div class="brand">sts1-sensors v0.4.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -191,7 +191,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
   
   
-  <span class="sidebar-brand-text">sts1-sensors v0.4.0 documentation</span>
+  <span class="sidebar-brand-text">sts1-sensors v0.4.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,10 +201,6 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Main</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../ADXL345.html">ADXL345</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
@@ -224,7 +220,6 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../utils/index.html">sts1_sensors.utils</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of sts1_sensors.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/PatchedSMBus/index.html">sts1_sensors.utils.PatchedSMBus</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../utils/utils/index.html">sts1_sensors.utils.utils</a></li>
 </ul>
 </li>
@@ -279,7 +274,23 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="sts1_sensors.edu.L3GD20H.L3GD20H">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">L3GD20H</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">245</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datarate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sts1_sensors.edu.L3GD20H.L3GD20H" title="Link to this definition">¶</a></dt>
-<dd><p>Three-axis gyroscope</p>
+<dd><p>Three-axis gyroscope.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>range</strong> (<em>int</em>) – Maximum angular velocity or speed of rotation that the gyro can read, measured in degrees per second (dps). Allowed values: <cite>[245, 500, 2000]</cite>, defaults to 245.</p></li>
+<li><p><strong>datarate</strong> (<em>float</em>) – Number of measurements per second [Hz]. Allowed values: <cite>[12.5, 25, 50, 100, 200, 400, 800]</cite>, defaults to 12.5.</p></li>
+<li><p><strong>address</strong> (<em>hexadecimal</em>) – Physical address of the sensor on the board (see <cite>i2cdetect</cite> command). Allowed values: <cite>[0x6A, 0x6B]</cite>. If None, the environment variable <cite>STS1_SENSOR_ADDRESS_L3GD20H</cite> will be used. If environment variable is not found, 0x6A will be used.</p></li>
+<li><p><strong>bus</strong> (<em>SMBus</em>) – A SMBus object. If None, this class will generate its own, defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gyro</span> <span class="o">=</span> <span class="n">L3GD20H</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="mi">245</span><span class="p">,</span> <span class="n">datarate</span><span class="o">=</span><span class="mf">12.5</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">gyro</span><span class="o">.</span><span class="n">get_dps</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">=:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> dps, </span><span class="si">{</span><span class="n">y</span><span class="si">=:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> dps, </span><span class="si">{</span><span class="n">z</span><span class="si">=:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> dps&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py property">
 <dt class="sig sig-object py" id="sts1_sensors.edu.L3GD20H.L3GD20H.range">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">range</span></span><a class="headerlink" href="#sts1_sensors.edu.L3GD20H.L3GD20H.range" title="Link to this definition">¶</a></dt>
@@ -291,14 +302,16 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="sts1_sensors.edu.L3GD20H.L3GD20H.get_position_raw">
-<span class="sig-name descname"><span class="pre">get_position_raw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sts1_sensors.edu.L3GD20H.L3GD20H.get_position_raw" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="sts1_sensors.edu.L3GD20H.L3GD20H.get_dps_raw">
+<span class="sig-name descname"><span class="pre">get_dps_raw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sts1_sensors.edu.L3GD20H.L3GD20H.get_dps_raw" title="Link to this definition">¶</a></dt>
+<dd><p>Get raw degrees per second.</p>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="sts1_sensors.edu.L3GD20H.L3GD20H.get_position">
-<span class="sig-name descname"><span class="pre">get_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sts1_sensors.edu.L3GD20H.L3GD20H.get_position" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="sts1_sensors.edu.L3GD20H.L3GD20H.get_dps">
+<span class="sig-name descname"><span class="pre">get_dps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sts1_sensors.edu.L3GD20H.L3GD20H.get_dps" title="Link to this definition">¶</a></dt>
+<dd><p>Get degrees per second.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -365,8 +378,8 @@
 <li><a class="reference internal" href="#sts1_sensors.edu.L3GD20H.L3GD20H"><code class="docutils literal notranslate"><span class="pre">L3GD20H</span></code></a><ul>
 <li><a class="reference internal" href="#sts1_sensors.edu.L3GD20H.L3GD20H.range"><code class="docutils literal notranslate"><span class="pre">range</span></code></a></li>
 <li><a class="reference internal" href="#sts1_sensors.edu.L3GD20H.L3GD20H.datarate"><code class="docutils literal notranslate"><span class="pre">datarate</span></code></a></li>
-<li><a class="reference internal" href="#sts1_sensors.edu.L3GD20H.L3GD20H.get_position_raw"><code class="docutils literal notranslate"><span class="pre">get_position_raw()</span></code></a></li>
-<li><a class="reference internal" href="#sts1_sensors.edu.L3GD20H.L3GD20H.get_position"><code class="docutils literal notranslate"><span class="pre">get_position()</span></code></a></li>
+<li><a class="reference internal" href="#sts1_sensors.edu.L3GD20H.L3GD20H.get_dps_raw"><code class="docutils literal notranslate"><span class="pre">get_dps_raw()</span></code></a></li>
+<li><a class="reference internal" href="#sts1_sensors.edu.L3GD20H.L3GD20H.get_dps"><code class="docutils literal notranslate"><span class="pre">get_dps()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -382,7 +395,7 @@
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=97b6c874"></script>
+</div><script src="../../../../_static/documentation_options.js?v=33ce4c6d"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>

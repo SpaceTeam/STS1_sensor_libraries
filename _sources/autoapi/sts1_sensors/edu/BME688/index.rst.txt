@@ -14,7 +14,31 @@ Module Contents
 
 
    Pressure, humidity, temperature and gas sensor.
-       
+
+   Builds on top of the library `bme680 <https://github.com/pimoroni/bme680-python>`_.
+
+   :param int temperature_osr: Temperature oversampling rate. Allowed values: `[None, 1, 2, 4, 8, 16]`. A higher oversampling value means more stable sensor readings with less noise and jitter  However each step of oversampling adds about 2ms to the latency, causing a slower response time to fast transients. Defaults to 8.
+   :param int humidity_osr: Humidity oversampling rate. Allowed values: `[None, 1, 2, 4, 8, 16]`. A higher oversampling value means more stable sensor readings with less noise and jitter  However each step of oversampling adds about 2ms to the latency, causing a slower response time to fast transients. Defaults to 2.
+   :param int pressure_osr: Pressure oversampling rate. Allowed values: `[None, 1, 2, 4, 8, 16]`. A higher oversampling value means more stable sensor readings with less noise and jitter  However each step of oversampling adds about 2ms to the latency, causing a slower response time to fast transients. Defaults to 4.
+   :param int iir_filter_size: Number of infinite impulse response filter coefficients. Allowed values: `[0, 1, 3, 7, 15, 31, 63, 127]`. It removes short term fluctuations from the temperature and pressure readings (not humidity), increasing their resolution but reducing their bandwidth. Defaults to 3.
+   :param int temperature_offset: Temperature offset, defaults to 0.
+   :param bool enable_gas_measurements: Enable gas measurements, defaults to False.
+   :param int gas_heater_temperature: Set temperature of gas sensor heater [°C], between 200 and 400, defaults to 320.
+   :param int gas_heater_duration: Set duration of gas sensor heater [ms], between 1 and 4032. Approximately 20-30 ms are necessary for the heater to reach the intended target temperature. Defaults to 150.
+   :param hexadecimal address: Physical address of the sensor on the board (see `i2cdetect` command). Allowed values: `[0x76, 0x77]`. If None, the environment variable `STS1_SENSOR_ADDRESS_BME688` will be used. If environment variable is not found, 0x76 will be used.
+   :param SMBus bus: A SMBus object. If None, this class will generate its own, defaults to None.
+
+   Example:
+
+   .. code-block:: python
+
+      sensor = BME688(temperature_osr=8, humidity_osr=2, pressure_osr=4, enable_gas_measurements=True)
+      t = sensor.get_temperature()
+      p = sensor.get_pressure()
+      h = sensor.get_humidity()
+      heat = sensor.get_heat_stable()
+      res = sensor.get_gas_resistance()
+      print(f"{t:.2f} °C, {p:.2f} hPa, {h:.2f} %RH, {heat=}, {res:.2f} Ohms")
 
 
    .. py:property:: temperature_osr
@@ -43,19 +67,43 @@ Module Contents
 
    .. py:method:: get_all_data()
 
+      Returns all sensor data. Calling this method after less than 10 ms will return the same (cached) result.
+              
+
+
 
    .. py:method:: get_heat_stable()
+
+      Indicates whether or not the gas resistance value should be read.
+              
+
 
 
    .. py:method:: get_temperature()
 
+      Temperature in degree celsius.
+              
+
+
 
    .. py:method:: get_pressure()
+
+      Pressure in hPa.
+              
+
 
 
    .. py:method:: get_humidity()
 
+      Humidity in % relative humidity.
+              
+
+
 
    .. py:method:: get_gas_resistance()
+
+      Gas resistance in Ohms.
+              
+
 
 
