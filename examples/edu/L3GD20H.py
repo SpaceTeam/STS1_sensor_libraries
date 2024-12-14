@@ -7,6 +7,6 @@ log = structlog.get_logger()
 gyro = L3GD20H(range=245, datarate=12.5)
 
 while True:
-    x, y, z = gyro.get_position()
-    log.info(f"X: {x:.2f}dpfs, Y: {y:.2f}dpfs, Z: {z:.2f}dpfs")
+    x, y, z = gyro.get_dps()
+    log.info(f"X: {x:.2f}dps, Y: {y:.2f}dps, Z: {z:.2f}dps")
     time.sleep(.25)

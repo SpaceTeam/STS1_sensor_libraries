@@ -41,8 +41,8 @@ print(f"Heading: {mag.get_heading():.2f}°")
 
 # Gyroscope
 gyro = L3GD20H()
-x, y, z = gyro.get_position()
-print(f"{x=:.2f} dpfs, {y=:.2f} dpfs, {z=:.2f} dpfs")
+x, y, z = gyro.get_dps()
+print(f"{x=:.2f} dps, {y=:.2f} dps, {z=:.2f} dps")
 
 # Temperature sensor
 temp = TMP112()

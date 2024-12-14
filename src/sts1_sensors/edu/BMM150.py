@@ -8,10 +8,25 @@ from sts1_sensors.utils.PatchedSMBus import PatchedSMBus
 
 class BMM150:
     """Geomagnetic sensor.
-
-    Datasheet: https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmm150-ds001.pdf
     """
+
     def __init__(self, address=None, bus=None):
+        """Geomagnetic sensor.
+
+        Builds on top of the library `bmm150 <https://gitlab.com/umoreau/bmm150>`_.
+
+        :param hexadecimal address: Physical address of the sensor on the board (see `i2cdetect` command). Allowed values: `[0x10, 0x11, 0x12, 0x13]`. If None, the environment variable `STS1_SENSOR_ADDRESS_BMM150` will be used. If environment variable is not found, 0x10 will be used.
+        :param SMBus bus: A SMBus object. If None, this class will generate its own, defaults to None.
+        
+        Example:
+
+        .. code-block:: python
+
+           mag = BMM150()
+           x, y, z = mag.get_magnetic_data()
+           print(f"{x=:.2f} µT, {y=:.2f} µT, {z=:.2f} µT")
+           print(f"Heading: {mag.get_heading():.2f}°")
+        """
         self.possible_addresses = [0x10, 0x11, 0x12, 0x13]
         a = address or int(os.environ.get("STS1_SENSOR_ADDRESS_BMM150", "0x10"), 16)
 
@@ -41,11 +56,17 @@ class BMM150:
         self._address = address
         
     def get_raw_magnetic_data(self):
+        """Get raw magnetic data in µT.
+        """
         return self.bmm.read_raw_mag_data()
 
     def get_magnetic_data(self):
+        """Get magnetic data in µT.
+        """
         return self.bmm.read_mag_data()
     
     def get_heading(self):
+        """Get heading direction in degrees. Uses only x and y for calculation (z is ignored).
+        """
         x, y, _ = self.get_magnetic_data()
         return math.degrees(math.atan2(x, y))
