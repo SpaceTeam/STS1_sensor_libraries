@@ -26,10 +26,10 @@ Module Contents
    Example:
 
    .. code-block:: python
-      
-   accel = ADXL345(range=2, datarate=50)
-   x, y, z = accel.get_g()
-   print(f"{x=:.2f} g, {y=:.2f} g, {z=:.2f} g")
+
+      accel = ADXL345(range=2, datarate=50)
+      x, y, z = accel.get_g()
+      print(f"{x=:.2f} g, {y=:.2f} g, {z=:.2f} g")
 
 
    .. py:property:: datarate
