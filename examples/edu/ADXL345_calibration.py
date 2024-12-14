@@ -2,12 +2,13 @@ from statistics import mean
 import time
 from sts1_sensors import ADXL345
 
-accel = ADXL345(address=0x53, range=2, datarate=50)
+accel = ADXL345(datarate=1.56)
 
+# takes 20 secs
 measurements = []
-for _ in range(200):
+for _ in range(100):
     measurements.append(accel.get_g())
-    time.sleep(.1)
+    time.sleep(.2)
 
 x_vals, y_vals, z_vals = zip(*measurements)
 

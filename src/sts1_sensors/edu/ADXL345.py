@@ -1,11 +1,10 @@
 import os
 
-from sts1_sensors.sensors.AbstractSensor import AbstractSensor
+from sts1_sensors.utils.AbstractSensor import AbstractSensor
 
 class ADXL345(AbstractSensor):
     """Digital accelerometer.
     """
-    _possible_addresses = [0x1D, 0x3A, 0x3B, 0x53]
     _possible_datarates = [0.10, 0.20, 0.39, 0.78, 1.56, 3.13, 6.25, 12.5, 25, 50, 100, 200, 400, 800, 1600, 3200]
     _possible_ranges = [2, 4, 8, 16]
 
@@ -19,10 +18,8 @@ class ADXL345(AbstractSensor):
         :param int z_offset: z-axis offset, defaults to 0.
         :param hexadecimal address: Physical address of the sensor on the board (see `i2cdetect` command). Allowed values: `[0x1D, 0x3A, 0x3B, 0x53]`. If None, the environment variable `STS1_SENSOR_ADDRESS_AVXL345` will be used. If environment variable is not found, 0x53 will be used.
         :param SMBus bus: A SMBus object. If None, this class will generate its own, defaults to None.
-        
-        :meta public:
         """
-        super().__init__(bus)
+        super().__init__(possible_addresses=[0x1D, 0x3A, 0x3B, 0x53], bus=bus)
             
         self.address = address or int(os.environ.get("STS1_SENSOR_ADDRESS_AVXL345", "0x53"), 16)
         self.datarate = datarate
@@ -35,25 +32,13 @@ class ADXL345(AbstractSensor):
         self.bus.write_byte_data(self.address, 0x31, 0b1011 & self._possible_ranges.index(self.range))
 
     @property
-    def address(self):
-        return self._address
-
-    @address.setter
-    def address(self, address):
-        if address not in self._possible_addresses:
-            s = f"The address {hex(address)} does not exist."
-            s += f" Choose one of {self._possible_addresses}."
-            raise ValueError(s)
-        self._address = address
-
-    @property
     def datarate(self):
         return self._datarate
 
     @datarate.setter
     def datarate(self, datarate):
         if datarate not in self._possible_datarates:
-            s = f"The datarate {hex(datarate)} does not exist."
+            s = f"The datarate {datarate} does not exist."
             s += f" Choose one of {self._possible_datarates}."
             raise ValueError(s)
         self._datarate = datarate
@@ -65,7 +50,7 @@ class ADXL345(AbstractSensor):
     @range.setter
     def range(self, range):
         if range not in self._possible_ranges:
-            s = f"The range {hex(range)} does not exist."
+            s = f"The range {range} does not exist."
             s += f" Choose one of {self._possible_ranges}."
             raise ValueError(s)
         self._range = range
