@@ -1,4 +1,4 @@
-[Docs](https://spaceteam.github.io/sts1_sensors/) | [Github](https://github.com/SpaceTeam/STS1_sensor_libraries) | [PyPI](https://pypi.org/project/sts1-sensors/)
+[Docs](https://spaceteam.github.io/STS1_sensor_libraries/) | [Github](https://github.com/SpaceTeam/STS1_sensor_libraries) | [PyPI](https://pypi.org/project/sts1-sensors/)
 
 # sts1-sensors
 
