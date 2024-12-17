@@ -26,11 +26,11 @@ def test_class_creation6():
     L3GD20H()
     del os.environ["STS1_SENSOR_ADDRESS_L3GD20H"]
 
-def test_get_postition1():
+def test_get_angular_momentum1():
     t = L3GD20H()
     t.get_angular_momentum_raw()
 
-def test_get_postition2():
+def test_get_angular_momentum2():
     t = L3GD20H()
     t.get_angular_momentum()
 
