@@ -22,7 +22,7 @@ class TMP112(AbstractSensor):
         .. code-block:: python
 
            temp = TMP112(conversion_rate=1, extended_temp_range=True)
-           print(f"{temp.get_temp():.2f} °C")
+           print(f"{temp.get_temperature():.2f} °C")
         """
         super().__init__(possible_addresses=[0x48, 0x49, 0x4A, 0x4B], bus=bus)
 
@@ -46,7 +46,7 @@ class TMP112(AbstractSensor):
             raise ValueError(s)
         self._conversion_rate = conversion_rate
 
-    def get_temp(self):
+    def get_temperature(self):
         """Get temperature in Celcius."""
         msg_w = i2c_msg.write(self.address, [0])
         msg_r = i2c_msg.read(self.address, 2)

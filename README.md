@@ -46,7 +46,7 @@ print(f"{x=:.2f} dps, {y=:.2f} dps, {z=:.2f} dps")
 
 # Temperature sensor
 temp = TMP112()
-print(f"{temp.get_temp():.2f} °C")
+print(f"{temp.get_temperature():.2f} °C")
 ```
 More examples, see examples folder.
 

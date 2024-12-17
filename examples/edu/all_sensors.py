@@ -22,7 +22,7 @@ for _ in range(10):
     px, py, pz = gyro.get_dps()
     s += f", {px=:.2f} dps, {py=:.2f} dps, {pz=:.2f} dps"
 
-    t1 = temp.get_temp() 
+    t1 = temp.get_temperature() 
     s += f", temp1 {t1:.2f} °C"
 
     t2 = multi.get_temperature()

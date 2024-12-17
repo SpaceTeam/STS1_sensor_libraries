@@ -27,9 +27,9 @@ def test_class_creation6():
     del os.environ["STS1_SENSOR_ADDRESS_TMP112"]
 
 
-def test_get_temp():
+def test_get_temperature():
     t = TMP112(address=0x48, conversion_rate=1)
-    t.get_temp()
+    t.get_temperature()
 
 def test_set_wrong_address1():
     with pytest.raises(ValueError):
