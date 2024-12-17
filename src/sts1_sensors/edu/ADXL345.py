@@ -24,7 +24,7 @@ class ADXL345(AbstractSensor):
         .. code-block:: python
 
            accel = ADXL345(range=2, datarate=50)
-           x, y, z = accel.get_g()
+           x, y, z = accel.get_acceleration()
            print(f"{x=:.2f} g, {y=:.2f} g, {z=:.2f} g")
         """
         super().__init__(possible_addresses=[0x1D, 0x3A, 0x3B, 0x53], bus=bus)
@@ -63,7 +63,7 @@ class ADXL345(AbstractSensor):
             raise ValueError(s)
         self._range = range
 
-    def _get_g_raw(self, var):
+    def _get_acceleration_raw(self, var):
         lsb, msb = self.bus.read_i2c_block_data(self.address, self.xyz_addresses[var], 2)
         k = (msb << 8) | lsb
         if (k >> 15) == 1:
@@ -71,18 +71,18 @@ class ADXL345(AbstractSensor):
             k = k * (-1)                
         return k
     
-    def get_g_raw(self):
+    def get_acceleration_raw(self):
         """Get raw acceleration.
         """
-        return self._get_g_raw("x"), self._get_g_raw("y"), self._get_g_raw("z")
+        return self._get_acceleration_raw("x"), self._get_acceleration_raw("y"), self._get_acceleration_raw("z")
     
-    def _get_g(self, var):
-        k = self._get_g_raw(var)
+    def _get_acceleration(self, var):
+        k = self._get_acceleration_raw(var)
         k = (k / (0b111111111)) * self.range
         k = k + self.offsets[var]
         return k
 
-    def get_g(self):
+    def get_acceleration(self):
         """Get acceleration adjusted by previously defined offsets.
         """
-        return self._get_g("x"), self._get_g("y"), self._get_g("z")
+        return self._get_acceleration("x"), self._get_acceleration("y"), self._get_acceleration("z")

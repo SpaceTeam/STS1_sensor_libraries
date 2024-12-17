@@ -26,22 +26,22 @@ def test_class_creation6():
     ADXL345()
     del os.environ["STS1_SENSOR_ADDRESS_AVXL345"]
 
-def test_get_g():
+def test_get_acceleration():
     accel = ADXL345()
-    accel.get_g()
+    accel.get_acceleration()
 
-def test_get_g_raw():
+def test_get_acceleration_raw():
     accel = ADXL345()
-    accel.get_g_raw()
+    accel.get_acceleration_raw()
 
 def test_multiple_objects():
     a1 = ADXL345(address=0x53)
     a2 = ADXL345(address=0x53)
     a3 = ADXL345(address=0x53)
     for _ in range(5):
-        a1.get_g()
-        a2.get_g()
-        a3.get_g()
+        a1.get_acceleration()
+        a2.get_acceleration()
+        a3.get_acceleration()
 
 def test_set_wrong_address1():
     with pytest.raises(ValueError):

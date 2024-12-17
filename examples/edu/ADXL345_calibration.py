@@ -7,7 +7,7 @@ accel = ADXL345(datarate=1.56)
 # takes 20 secs
 measurements = []
 for _ in range(100):
-    measurements.append(accel.get_g())
+    measurements.append(accel.get_acceleration())
     time.sleep(.2)
 
 x_vals, y_vals, z_vals = zip(*measurements)

@@ -12,14 +12,14 @@ temp = TMP112() # Temperature sensor
 multi = BME688(enable_gas_measurements=True) # Pressure, humidity, temperature and gas sensor
 
 for _ in range(10):
-    gx, gy, gz = accel.get_g()
+    gx, gy, gz = accel.get_acceleration()
     s = f"{gx=:.2f}, {gy=:.2f}, {gz=:.2f}"
     
     mx, my, mz = mag.get_magnetic_data()
     s += f", {mx=:.2f} µT, {my=:.2f} µT, {mz=:.2f} µT"
     s += f", Heading: {mag.get_heading():.2f}°"
 
-    px, py, pz = gyro.get_dps()
+    px, py, pz = gyro.get_angular_momentum()
     s += f", {px=:.2f} dps, {py=:.2f} dps, {pz=:.2f} dps"
 
     t1 = temp.get_temperature() 

@@ -23,7 +23,7 @@ class L3GD20H(AbstractSensor):
         .. code-block:: python
 
            gyro = L3GD20H(range=245, datarate=12.5)
-           x, y, z = gyro.get_dps()
+           x, y, z = gyro.get_angular_momentum()
            print(f"{x=:.2f} dps, {y=:.2f} dps, {z=:.2f} dps")
         """
         super().__init__(possible_addresses=[0x6A, 0x6B], bus=bus)
@@ -70,14 +70,14 @@ class L3GD20H(AbstractSensor):
         lsb, msb = self.bus.read_i2c_block_data(self.address, self.xyz_addresses[var], 2)
         return twos_comp((msb << 8) + lsb, 16)
 
-    def get_dps_raw(self):
+    def get_angular_momentum_raw(self):
         "Get raw degrees per second."
         return self._get_raw("x"), self._get_raw("y"), self._get_raw("z")
 
-    def _get_dps(self, var):
+    def _get_angular_momentum(self, var):
         k = self._get_raw(var)
         return k * self.dps_per_digit[self._possible_ranges.index(self.range)]
 
-    def get_dps(self):
+    def get_angular_momentum(self):
         "Get degrees per second."
-        return self._get_dps("x"), self._get_dps("y"), self._get_dps("z")
+        return self._get_angular_momentum("x"), self._get_angular_momentum("y"), self._get_angular_momentum("z")

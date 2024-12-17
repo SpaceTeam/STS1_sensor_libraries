@@ -21,7 +21,7 @@ from sts1_sensors import ADXL345, BME688, BMM150, L3GD20H, TMP112
 
 # Accelerometer
 accel = ADXL345()
-x, y, z = accel.get_g()
+x, y, z = accel.get_acceleration()
 print(f"{x=:.2f} g, {y=:.2f} g, {z=:.2f} g")
 
 # Temperature, pressure, humidity and gas sensor
@@ -41,7 +41,7 @@ print(f"Heading: {mag.get_heading():.2f}°")
 
 # Gyroscope
 gyro = L3GD20H()
-x, y, z = gyro.get_dps()
+x, y, z = gyro.get_angular_momentum()
 print(f"{x=:.2f} dps, {y=:.2f} dps, {z=:.2f} dps")
 
 # Temperature sensor

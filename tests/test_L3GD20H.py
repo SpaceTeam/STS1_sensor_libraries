@@ -28,11 +28,11 @@ def test_class_creation6():
 
 def test_get_postition1():
     t = L3GD20H()
-    t.get_dps_raw()
+    t.get_angular_momentum_raw()
 
 def test_get_postition2():
     t = L3GD20H()
-    t.get_dps()
+    t.get_angular_momentum()
 
 def test_set_wrong_address1():
     with pytest.raises(ValueError):
