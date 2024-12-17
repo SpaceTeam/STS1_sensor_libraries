@@ -25,7 +25,7 @@ Module Contents
    .. code-block:: python
 
       gyro = L3GD20H(range=245, datarate=12.5)
-      x, y, z = gyro.get_dps()
+      x, y, z = gyro.get_angular_momentum()
       print(f"{x=:.2f} dps, {y=:.2f} dps, {z=:.2f} dps")
 
 
@@ -35,13 +35,13 @@ Module Contents
    .. py:property:: datarate
 
 
-   .. py:method:: get_dps_raw()
+   .. py:method:: get_angular_momentum_raw()
 
       Get raw degrees per second.
 
 
 
-   .. py:method:: get_dps()
+   .. py:method:: get_angular_momentum()
 
       Get degrees per second.
 

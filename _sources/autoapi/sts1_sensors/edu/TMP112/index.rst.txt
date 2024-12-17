@@ -25,13 +25,13 @@ Module Contents
    .. code-block:: python
 
       temp = TMP112(conversion_rate=1, extended_temp_range=True)
-      print(f"{temp.get_temp():.2f} °C")
+      print(f"{temp.get_temperature():.2f} °C")
 
 
    .. py:property:: conversion_rate
 
 
-   .. py:method:: get_temp()
+   .. py:method:: get_temperature()
 
       Get temperature in Celcius.
 

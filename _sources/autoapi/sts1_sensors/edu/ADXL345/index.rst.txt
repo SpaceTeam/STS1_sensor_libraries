@@ -28,7 +28,7 @@ Module Contents
    .. code-block:: python
 
       accel = ADXL345(range=2, datarate=50)
-      x, y, z = accel.get_g()
+      x, y, z = accel.get_acceleration()
       print(f"{x=:.2f} g, {y=:.2f} g, {z=:.2f} g")
 
 
@@ -38,14 +38,14 @@ Module Contents
    .. py:property:: range
 
 
-   .. py:method:: get_g_raw()
+   .. py:method:: get_acceleration_raw()
 
       Get raw acceleration.
               
 
 
 
-   .. py:method:: get_g()
+   .. py:method:: get_acceleration()
 
       Get acceleration adjusted by previously defined offsets.
               
