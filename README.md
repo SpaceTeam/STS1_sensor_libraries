@@ -91,3 +91,10 @@ pip install sts1-sensors
 * Switch into the directory.
 * Run `uv sync --all-extras --dev`. This creates a `.venv` folder and installs all necessary dependencies.
 * (Only on Raspberry Pi) Run `pytest`
+
+## Acknowledgments
+
+This project makes use of the following open-source libraries and resources:
+
+* [bmm150](https://gitlab.com/umoreau/bmm150) - Usage of the bmm150 sensor.
+* [bme680](https://github.com/pimoroni/bme680-python) - Usage of the bme680 sensor.
