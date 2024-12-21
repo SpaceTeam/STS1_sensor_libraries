@@ -41,11 +41,12 @@ class BMM150(AbstractSensor):
     OP_MODE_ADDR = 0x4C
     OVERFLOW_OUTPUT = -32768
 
-    def __init__(self, address=None, bus=None):
+    def __init__(self, preset_mode=1, address=None, bus=None):
         """Geomagnetic sensor.
 
         Builds on top of the library `bmm150 <https://gitlab.com/umoreau/bmm150>`_. by Ulysse Moreau.
 
+        :param int preset_mode: Integer, either 1 (Low Power), 2 (Regular), 3 (High Accuracy) or 4 (Enhanced). Defaults to 1.
         :param hexadecimal address: Physical address of the sensor on the board (see `i2cdetect` command). Allowed values: `[0x10, 0x11, 0x12, 0x13]`. If None, the environment variable `STS1_SENSOR_ADDRESS_BMM150` will be used. If environment variable is not found, 0x10 will be used.
         :param SMBus bus: A SMBus object. If None, this class will generate its own, defaults to None.
         
@@ -62,6 +63,13 @@ class BMM150(AbstractSensor):
         
         self.address = address or int(os.environ.get("STS1_SENSOR_ADDRESS_BMM150", "0x10"), 16)
     
+        for p in PresetMode:
+            if preset_mode == p.value:
+                self.presetmode = p
+                break
+        else:   
+            raise ValueError(f"preset_mode has to be between 1 and 4, but was {preset_mode}")
+
         # Power up the sensor from suspend to sleep mode
         self.set_op_mode(PowerMode.SLEEP)
         time.sleep(self.START_UP_TIME_MS / 1000.0)
@@ -81,7 +89,7 @@ class BMM150(AbstractSensor):
 
         #  Setting the preset mode as Low power mode
         #    i.e. data rate = 10Hz XY-rep = 1 Z-rep = 2
-        self.set_presetmode(PresetMode.LOWPOWER)
+        self.set_presetmode(self.presetmode)
 
         # Wait up to 10 secs for sensor to be ready
         for _ in range(20):
