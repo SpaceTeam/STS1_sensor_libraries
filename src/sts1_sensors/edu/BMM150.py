@@ -2,7 +2,7 @@ import math
 import os
 import time
 
-from sts1_sensors.edu.legacy import BMM150
+from sts1_sensors.edu import legacy
 
 from sts1_sensors.utils.PatchedSMBus import PatchedSMBus
 
@@ -33,7 +33,7 @@ class BMM150:
         self.address = a
         self.bus = PatchedSMBus(address=a, bus=bus)
 
-        self.bmm = BMM150(auto_init=False)
+        self.bmm = legacy.BMM150(auto_init=False)
         self.bmm.i2c_bus = self.bus
         self.bmm.initialize()
     
