@@ -217,7 +217,6 @@ class BMM150(AbstractSensor):
         self.bus.write_byte_data(self.address, self.POWER_CONTROL_ADDR, reg_data)
 
     def _set_odr_xyz_rep(self):
-        """_summary_"""
         REP_XY_ADDR = 0x51
         REP_Z_ADDR = 0x52
 
@@ -229,7 +228,6 @@ class BMM150(AbstractSensor):
         self.bus.write_byte_data(self.address, REP_Z_ADDR, self.settings.z_rep)
 
     def _set_odr(self):
-        """_summary_"""
         ODR_MSK = 0x38
         ODR_POS = 0x03
 
