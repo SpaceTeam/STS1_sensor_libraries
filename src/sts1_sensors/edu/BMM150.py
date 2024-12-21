@@ -77,7 +77,7 @@ class BMM150(AbstractSensor):
         CHIP_ID = 0x32
         CHIP_ID_ADDR = 0x40
 
-        chip_id = self.bus.write_byte_data(self.address, CHIP_ID_ADDR)
+        chip_id = self.bus.read_byte_data(self.address, CHIP_ID_ADDR)
         if chip_id != CHIP_ID:
             raise ValueError("The chip ID was not conform. Are you sure you are trying to interface with a bmm150?")
 
