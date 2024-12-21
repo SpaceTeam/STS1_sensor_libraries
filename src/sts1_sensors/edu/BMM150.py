@@ -32,6 +32,73 @@ class PowerControl(IntEnum):
     DISABLE = 0x00
     ENABLE = 0x01
 
+class bmm150_mag_data:
+    x: int = 0
+    y: int = 0
+    z: int = 0
+
+# /*
+#     @brief bmm150 un-compensated (raw) magnetometer data
+# */
+class bmm150_raw_mag_data:
+    # /*! Raw mag X data */
+    raw_datax: int = 0
+    # /*! Raw mag Y data */
+    raw_datay: int = 0
+    # /*! Raw mag Z data */
+    raw_dataz: int = 0
+    # /*! Raw mag resistance value */
+    raw_data_r: int = 0
+
+
+# /*!
+#     @brief bmm150 trim data structure
+# */
+class bmm150_trim_registers:
+    # /*! trim x1 data */
+    dig_x1: int = 0
+    # /*! trim y1 data */
+    dig_y1: int = 0
+    # /*! trim x2 data */
+    dig_x2: int = 0
+    # /*! trim y2 data */
+    dig_y2: int = 0
+    # /*! trim z1 data */
+    dig_z1: int = 0
+    # /*! trim z2 data */
+    dig_z2: int = 0
+    # /*! trim z3 data */
+    dig_z3: int = 0
+    # /*! trim z4 data */
+    dig_z4: int = 0
+    # /*! trim xy1 data */
+    dig_xy1: int = 0
+    # /*! trim xy2 data */
+    dig_xy2: int = 0
+    # /*! trim xyz1 data */
+    dig_xyz1: int = 0
+
+# /**
+#     @brief bmm150 sensor settings
+# */
+class bmm150_settings:
+    # /*! Control measurement of XYZ axes */
+    xyz_axes_control: int = 0
+    # /*! Power control bit value */
+    pwr_cntrl_bit: int = 0
+    # /*! Power control bit value */
+    pwr_mode: int = 0
+    # /*! Data rate value (ODR) */
+    data_rate: int = 0
+    # /*! XY Repetitions */
+    xy_rep: int = 0
+    # /*! Z Repetitions */
+    z_rep: int = 0
+    # /*! Preset mode of sensor */
+    preset_mode: int = 0
+    # /*! Interrupt configuration settings */
+    # // struct bmm150_int_ctrl_settings int_settings: int
+
 
 class BMM150(AbstractSensor):
     """Geomagnetic sensor.
@@ -69,6 +136,11 @@ class BMM150(AbstractSensor):
                 break
         else:   
             raise ValueError(f"preset_mode has to be between 1 and 4, but was {preset_mode}")
+
+        self.settings = bmm150_settings()
+        self.raw_mag_data = bmm150_raw_mag_data()
+        self.mag_data = bmm150_mag_data()
+        self.trim_data = bmm150_trim_registers()
 
         # Power up the sensor from suspend to sleep mode
         self.set_op_mode(PowerMode.SLEEP)
