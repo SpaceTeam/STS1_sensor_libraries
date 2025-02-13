@@ -81,6 +81,12 @@ If you want the latest stable version, install it like so:
 pip install sts1-sensors
 ```
 
+Depending on the Raspberry Pi OS version you are using it may be necessary to install the package in a python virtual environment
+```bash
+python3 -m venv --system-site-packages .venv
+source .venv/bin/activate
+pip install sts1-sensors
+```
 ## For Developers
 
 * Install [just](https://github.com/casey/just?tab=readme-ov-file#pre-built-binaries): `curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin`
