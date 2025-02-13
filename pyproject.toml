@@ -1,13 +1,14 @@
 [project]
 name = "sts1_sensors"
-version = "0.4.2"
+version = "0.5.0"
 description = "A sensor library for the CubeSat STS1 (TU Wien Space Team)."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 dependencies = [
     "bme680>=2.0.0",
     "smbus2>=0.4.2,<0.5.0",
     "structlog>=24.4.0",
+    "picamera2>=0.3.25",
 ]
 authors = [
   {name = "Simon Köfinger", email = "simon.koefinger@spaceteam.at"},
