@@ -27,6 +27,16 @@ def test_get_values3():
     mag = BMM150()
     mag.get_heading()
 
+def test_preset_modes():
+    BMM150(preset_mode=1)
+    BMM150(preset_mode=2)
+    BMM150(preset_mode=3)
+    BMM150(preset_mode=4)
+
+def test_set_wrong_preset_mode():
+    with pytest.raises(ValueError):
+        BMM150(preset_mode=5)
+
 def test_set_wrong_address1():
     with pytest.raises(ValueError):
         BMM150(address=0x99)

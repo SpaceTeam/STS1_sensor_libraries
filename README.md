@@ -81,6 +81,12 @@ If you want the latest stable version, install it like so:
 pip install sts1-sensors
 ```
 
+Depending on the Raspberry Pi OS version you are using it may be necessary to install the package in a python virtual environment
+```bash
+python3 -m venv --system-site-packages .venv
+source .venv/bin/activate
+pip install sts1-sensors
+```
 ## For Developers
 
 * Install [just](https://github.com/casey/just?tab=readme-ov-file#pre-built-binaries): `curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin`
@@ -91,3 +97,10 @@ pip install sts1-sensors
 * Switch into the directory.
 * Run `uv sync --all-extras --dev`. This creates a `.venv` folder and installs all necessary dependencies.
 * (Only on Raspberry Pi) Run `pytest`
+
+## Acknowledgments
+
+This project makes use of the following open-source libraries and resources:
+
+* [bmm150](https://gitlab.com/umoreau/bmm150) - Usage of the bmm150 sensor.
+* [bme680](https://github.com/pimoroni/bme680-python) - Usage of the bme680 sensor.
