@@ -15,5 +15,6 @@ Submodules
    /autoapi/sts1_sensors/edu/BMM150/index
    /autoapi/sts1_sensors/edu/L3GD20H/index
    /autoapi/sts1_sensors/edu/TMP112/index
+   /autoapi/sts1_sensors/edu/cam/index
 
 
