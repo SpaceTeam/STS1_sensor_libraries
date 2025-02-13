@@ -1,6 +1,6 @@
 [project]
 name = "sts1_sensors"
-version = "0.5.0"
+version = "0.5.1"
 description = "A sensor library for the CubeSat STS1 (TU Wien Space Team)."
 readme = "README.md"
 requires-python = ">=3.11"
