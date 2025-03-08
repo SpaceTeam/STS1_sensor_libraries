@@ -75,18 +75,26 @@ flo@raspberrypi:~ $ sudo i2cdetect -y 1
 ```
 
 ### Installing the Python Package on the Raspberry Pi
+Before installing this library, make sure `picamera2` is installed system-wide:  
+```bash
+sudo apt install python3-picamera2
+```
 
-If you want the latest stable version, install it like so:
+If you want the latest stable version of the senor libray, install it like so:
 ```bash
 pip install sts1-sensors
 ```
 
-Depending on the Raspberry Pi OS version you are using it may be necessary to install the package in a python virtual environment
+Depending on the Raspberry Pi OS version you are using it may be necessary to install the library in a python virtual environment
 ```bash
 python3 -m venv --system-site-packages .venv
 source .venv/bin/activate
 pip install sts1-sensors
 ```
+
+> **🚨 Note:** This library has only been tested with the **Arducam IMX519** camera module ([link](https://www.uctronics.com/arducam-mini-16mp-imx519-camera-module-raspberry-pi-zero.html)).  
+> Camera-specific setup steps are required before use.  
+> Here are the steps required for the **Arducam IMX519** ([link](https://docs.arducam.com/Raspberry-Pi-Camera/Native-camera/16MP-IMX519/))
 ## For Developers
 
 * Install [just](https://github.com/casey/just?tab=readme-ov-file#pre-built-binaries): `curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin`
