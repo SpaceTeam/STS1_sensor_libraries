@@ -75,13 +75,17 @@ flo@raspberrypi:~ $ sudo i2cdetect -y 1
 ```
 
 ### Installing the Python Package on the Raspberry Pi
+Before installing this library, make sure `picamera2` is installed system-wide:  
+```bash
+sudo apt install python3-picamera2
+```
 
-If you want the latest stable version, install it like so:
+If you want the latest stable version of the senor libray, install it like so:
 ```bash
 pip install sts1-sensors
 ```
 
-Depending on the Raspberry Pi OS version you are using it may be necessary to install the package in a python virtual environment
+Depending on the Raspberry Pi OS version you are using it may be necessary to install the library in a python virtual environment
 ```bash
 python3 -m venv --system-site-packages .venv
 source .venv/bin/activate
